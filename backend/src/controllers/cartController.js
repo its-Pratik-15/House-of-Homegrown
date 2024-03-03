@@ -23,20 +23,19 @@ class CartController {
   async addItemToCart(req, res) {
     try {
       const userId = req.headers['user-id'] || 1;
-      const { productId, quantity, priceAtTime } = req.body;
+      const { productId, quantity } = req.body;
       
-      if (!productId || !quantity || !priceAtTime) {
+      if (!productId || !quantity) {
         return res.status(400).json({
           success: false,
-          error: 'Product ID, quantity, and price are required'
+          error: 'Product ID and quantity are required'
         });
       }
       
       const item = await cartService.addItemToCart(
         parseInt(userId),
         parseInt(productId),
-        parseInt(quantity),
-        parseFloat(priceAtTime)
+        parseInt(quantity)
       );
       
       res.status(201).json({
