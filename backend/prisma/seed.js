@@ -257,9 +257,90 @@ async function main() {
         },
     });
 
+    // Handwoven Linen Throw
+    await prisma.product.create({
+        data: {
+            title: "Handwoven Linen Throw (Natural Charcoal)",
+            slug: "handwoven-linen-throw-natural-charcoal",
+            shortDescription: "Soft handwoven throw for everyday comfort",
+            longDescription: "Artisan-made handwoven linen throw crafted from natural fibers. Breathable, lightweight, and perfect for layering on sofas, beds, or cozy evenings.",
+            price: 2499,
+            mrp: 2999,
+            brand: "Homegrown",
+            categoryId: textilesCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957061/handwooven-linen_hyaigh.jpg",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 60,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
+    // Handwoven Cane Storage Basket
+    await prisma.product.create({
+        data: {
+            title: "Handwoven Cane Storage Basket",
+            slug: "handwoven-cane-storage-basket",
+            shortDescription: "Natural woven basket for mindful storage",
+            longDescription: "Handcrafted cane storage basket designed for functional beauty. Ideal for organizing firewood, linens, or everyday essentials while adding warmth to your space.",
+            price: 1899,
+            mrp: 2299,
+            brand: "Homegrown",
+            categoryId: homeLivingCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957117/wooden_storage_m1doyu.webp",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 40,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
+    // Handcrafted Wooden Kitchen Utensil Set
+    await prisma.product.create({
+        data: {
+            title: "Handcrafted Wooden Kitchen Utensil Set",
+            slug: "handcrafted-wooden-kitchen-utensil-set",
+            shortDescription: "Everyday wooden tools for conscious cooking",
+            longDescription: "A thoughtfully curated set of handcrafted wooden kitchen utensils. Gentle on cookware, durable, and made from natural wood for everyday Indian kitchens.",
+            price: 1599,
+            mrp: 1999,
+            brand: "Homegrown",
+            categoryId: homeLivingCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957074/wooden-products_v8hnqr.jpg",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 80,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
     console.log("Seeding completed successfully!");
     console.log(`Created categories: WELLNESS, HOME_LIVING, LIFESTYLE, TEXTILES`);
-    console.log(`Created 8 products with inventory data`);
+    console.log(`Created 11 products with inventory data`);
 }
 
 main()

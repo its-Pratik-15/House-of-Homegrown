@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import PremiumCTAButton from '@/components/ui/premium-cta-button'
 import { ChevronDown } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
@@ -84,23 +84,17 @@ export default function HeroSection() {
 
                     {/* CTA Button - Desktop positioning */}
                     <div className="mt-10">
-                        <Button
-                            size="lg"
-                            className="px-10 py-4 rounded-full font-medium shadow-lg transition-all duration-300 bg-[#2E7D32] text-white border-none hover:bg-[#2E7D32]/90 text-lg animate-bounce hover:animate-none hover:scale-110 hover:shadow-2xl"
-                        >
+                        <PremiumCTAButton to="/products" variant="primary">
                             Shop Now
-                        </Button>
+                        </PremiumCTAButton>
                     </div>
                 </div>
 
                 {/* CTA Button - Mobile positioning (moved lower) */}
                 <div className="absolute bottom-16 md:hidden">
-                    <Button
-                        size="lg"
-                        className="bg-white/20 backdrop-blur-md border border-white/30 hover:bg-white/30 text-white px-8 py-3 rounded-full font-medium shadow-lg transition-all duration-300 animate-pulse hover:animate-none hover:scale-105 hover:shadow-xl"
-                    >
+                    <PremiumCTAButton to="/products" variant="primary">
                         Shop Now
-                    </Button>
+                    </PremiumCTAButton>
                 </div>
 
                 {/* Scroll Hint - Enhanced - Desktop only */}
