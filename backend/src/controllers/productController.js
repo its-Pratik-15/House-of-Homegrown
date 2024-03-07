@@ -54,6 +54,30 @@ class ProductController {
       });
     }
   }
+
+  async getProductById(req, res) {
+    try {
+      const { id } = req.params;
+      const product = await productService.getProductById(id);
+      
+      res.json({
+        success: true,
+        data: product
+      });
+    } catch (error) {
+      console.error('Error in getProductById:', error);
+      if (error.message === 'Product not found') {
+        return res.status(404).json({
+          success: false,
+          error: 'Product not found'
+        });
+      }
+      res.status(500).json({
+        success: false,
+        error: 'Failed to fetch product'
+      });
+    }
+  }
 }
 
 module.exports = new ProductController();

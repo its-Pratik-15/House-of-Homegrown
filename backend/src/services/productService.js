@@ -129,6 +129,29 @@ class ProductService {
       throw new Error(`Failed to fetch product: ${error.message}`);
     }
   }
+
+  async getProductById(id) {
+    try {
+      const product = await prisma.product.findUnique({
+        where: { id: parseInt(id) },
+        include: {
+          category: true,
+          images: {
+            orderBy: { position: 'asc' }
+          },
+          inventory: true
+        }
+      });
+      
+      if (!product) {
+        throw new Error('Product not found');
+      }
+      
+      return product;
+    } catch (error) {
+      throw new Error(`Failed to fetch product: ${error.message}`);
+    }
+  }
 }
 
 module.exports = new ProductService();
