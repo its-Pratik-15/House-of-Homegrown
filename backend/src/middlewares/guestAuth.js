@@ -6,12 +6,14 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-producti
 // Middleware to handle guest authentication
 const guestAuth = (req, res, next) => {
     try {
-        // Check for authorization header
+        // Check for authorization header first, then cookies
         const authHeader = req.headers.authorization;
         let token = null;
 
         if (authHeader && authHeader.startsWith('Bearer ')) {
             token = authHeader.substring(7);
+        } else if (req.cookies && req.cookies.guest_token) {
+            token = req.cookies.guest_token;
         }
 
         if (token) {
@@ -39,8 +41,14 @@ const guestAuth = (req, res, next) => {
                 req.guestId = guestId;
                 req.guestToken = guestToken;
                 
-                // Set the token in response header for client to store
+                // Set both header and cookie
                 res.setHeader('X-Guest-Token', guestToken);
+                res.cookie('guest_token', guestToken, {
+                    httpOnly: false, // Allow JavaScript access
+                    secure: false, // Set to true in production with HTTPS
+                    sameSite: 'lax',
+                    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+                });
             }
         } else {
             // No token provided, create new guest session
@@ -59,8 +67,14 @@ const guestAuth = (req, res, next) => {
             req.guestId = guestId;
             req.guestToken = guestToken;
             
-            // Set the token in response header for client to store
+            // Set both header and cookie
             res.setHeader('X-Guest-Token', guestToken);
+            res.cookie('guest_token', guestToken, {
+                httpOnly: false, // Allow JavaScript access
+                secure: false, // Set to true in production with HTTPS
+                sameSite: 'lax',
+                maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+            });
         }
 
         next();
@@ -82,7 +96,15 @@ const guestAuth = (req, res, next) => {
         req.isGuest = true;
         req.guestId = guestId;
         req.guestToken = guestToken;
+        
+        // Set both header and cookie
         res.setHeader('X-Guest-Token', guestToken);
+        res.cookie('guest_token', guestToken, {
+            httpOnly: false,
+            secure: false,
+            sameSite: 'lax',
+            maxAge: 30 * 24 * 60 * 60 * 1000
+        });
         
         next();
     }
