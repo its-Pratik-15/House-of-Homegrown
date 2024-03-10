@@ -167,7 +167,7 @@ export default function CategorySection() {
                                     </div>
                                 )}
 
-                                <Link to={`/${category.id}`}>
+                                <Link to={`/products?category=${category.id.toUpperCase().replace('-', '_')}`}>
                                     <Button
                                         size="sm"
                                         className="rounded-full px-6 hover:opacity-90"

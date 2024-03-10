@@ -98,13 +98,8 @@ export default function HeroSection() {
                 </div>
 
                 {/* Scroll Hint - Enhanced - Desktop only */}
-                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:flex flex-col items-center space-y-2 animate-bounce">
-                    <div className="text-white/90 text-xs font-medium tracking-wide uppercase">
-                        Scroll Down
-                    </div>
-                    <div className="flex flex-col space-y-1">
-                        <ChevronDown className="h-5 w-5 text-white/80 animate-pulse" />
-                    </div>
+                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:flex flex-col items-center">
+                    <ChevronDown className="h-5 w-5 text-white/80 animate-scroll-hint" />
                 </div>
             </div>
         </section>
