@@ -1,6 +1,131 @@
-# House of Homegrown - E-commerce
+# House of Homegrown
 
-House of Homegrown is an Indian D2C brand inspired by "Roti, Kapda aur Makan", offering sustainable, natural, and Indian-made products across textiles, home & living, wellness, and lifestyle.
+A premium Indian D2C e-commerce platform for sustainable, handcrafted products made with love and tradition.
+
+## 🏠 About
+
+House of Homegrown is a modern e-commerce platform that celebrates traditional Indian craftsmanship while embracing sustainable practices. Inspired by "Roti, Kapda aur Makan", we offer a curated collection of:
+
+- **Textiles** - Handwoven fabrics and traditional textiles
+- **Home & Living** - Artisan-made home decor and functional items  
+- **Wellness** - Natural and organic personal care products
+- **Lifestyle** - Eco-friendly everyday essentials
+
+## 🚀 Features
+
+- **Premium D2C Design** - Clean, modern interface with earthy brand colors
+- **Guest Cart System** - JWT-based authentication for seamless shopping
+- **Mobile-First** - Responsive design optimized for all devices
+- **Product Showcase** - Beautiful product galleries with filtering
+- **Sustainable Focus** - Highlighting eco-friendly and traditional products
+
+## 🛠 Tech Stack
+
+### Frontend
+- **React 19** with Vite
+- **Tailwind CSS** for styling
+- **React Router** for navigation
+- **Lucide React** for icons
+- **shadcn/ui** components
+
+### Backend
+- **Node.js** with Express
+- **Prisma ORM** with PostgreSQL
+- **JWT Authentication** for guest sessions
+- **Cookie-based** session management
+
+## 🎨 Brand Colors
+
+- **Primary Earthy Brown**: `#8B5E3C`
+- **Secondary Beige**: `#F5F1E8` 
+- **Accent Green**: `#6B8E23`
+- **Background**: `#FAFAF8`
+
+## 📱 Typography
+
+- **Brand Name**: Playfair Display (serif)
+- **Headings**: Inter SemiBold
+- **Body Text**: Inter Regular
+- **Buttons**: Inter Medium
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- PostgreSQL database
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/your-username/house-of-homegrown.git
+cd house-of-homegrown
+```
+
+2. Install backend dependencies
+```bash
+cd backend
+npm install
+```
+
+3. Install frontend dependencies
+```bash
+cd ../frontend
+npm install
+```
+
+4. Set up environment variables
+```bash
+# Backend (.env)
+DATABASE_URL="your-postgresql-connection-string"
+JWT_SECRET="your-jwt-secret"
+
+# Frontend (.env)
+VITE_API_URL="http://localhost:3001/api"
+```
+
+5. Run database migrations
+```bash
+cd backend
+npx prisma migrate dev
+npx prisma db seed
+```
+
+6. Start the development servers
+```bash
+# Backend (Terminal 1)
+cd backend
+npm start
+
+# Frontend (Terminal 2)  
+cd frontend
+npm run dev
+```
+
+## 📦 Project Structure
+
+```
+house-of-homegrown/
+├── backend/
+│   ├── prisma/          # Database schema and migrations
+│   ├── src/
+│   │   ├── controllers/ # Route handlers
+│   │   ├── services/    # Business logic
+│   │   ├── middlewares/ # Custom middleware
+│   │   └── routes/      # API routes
+│   └── server.js        # Express server
+├── frontend/
+│   ├── public/          # Static assets
+│   ├── src/
+│   │   ├── components/  # React components
+│   │   ├── pages/       # Page components
+│   │   ├── services/    # API services
+│   │   ├── hooks/       # Custom hooks
+│   │   └── utils/       # Utility functions
+│   └── index.html       # HTML template
+└── docs/                # Documentation
+```
 
 
 ## ER Model

@@ -1,7 +1,8 @@
 {
-  "name": "frontend",
+  "name": "house-of-homegrown-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "House of Homegrown - Sustainable handcrafted products e-commerce platform",
   "type": "module",
   "scripts": {
     "dev": "vite",
