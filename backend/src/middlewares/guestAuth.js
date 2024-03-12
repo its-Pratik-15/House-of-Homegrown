@@ -45,8 +45,8 @@ const guestAuth = (req, res, next) => {
                 res.setHeader('X-Guest-Token', guestToken);
                 res.cookie('guest_token', guestToken, {
                     httpOnly: false, // Allow JavaScript access
-                    secure: false, // Set to true in production with HTTPS
-                    sameSite: 'lax',
+                    secure: process.env.NODE_ENV === 'production', // HTTPS only in production
+                    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Cross-site in production
                     maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
                 });
             }
@@ -71,8 +71,8 @@ const guestAuth = (req, res, next) => {
             res.setHeader('X-Guest-Token', guestToken);
             res.cookie('guest_token', guestToken, {
                 httpOnly: false, // Allow JavaScript access
-                secure: false, // Set to true in production with HTTPS
-                sameSite: 'lax',
+                secure: process.env.NODE_ENV === 'production', // HTTPS only in production
+                sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Cross-site in production
                 maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
             });
         }
@@ -101,8 +101,8 @@ const guestAuth = (req, res, next) => {
         res.setHeader('X-Guest-Token', guestToken);
         res.cookie('guest_token', guestToken, {
             httpOnly: false,
-            secure: false,
-            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: 30 * 24 * 60 * 60 * 1000
         });
         
