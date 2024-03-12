@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import ProductCard from '../../components/common/ProductCard'
 import SimpleFilter from '../../components/filters/SimpleFilter'
 import PremiumCTAButton from '@/components/ui/premium-cta-button'
+import ServerErrorFallback from '../../components/ServerErrorFallback'
 
 export default function ProductShowcase() {
     const location = useLocation()
@@ -114,27 +115,17 @@ export default function ProductShowcase() {
     }
 
     if (error) {
+        const errorObj = new Error(error)
+        errorObj.code = error.includes('fetch') ? 'NETWORK_ERROR' : 'HTTP_ERROR'
+
         return (
-            <div className="min-h-screen bg-[#FAFAF8]">
-                <div className="pt-20 px-4">
-                    <div className="max-w-md mx-auto text-center py-16">
-                        <div className="mb-8">
-                            <div className="w-16 h-16 bg-[#8B5E3C]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl">⚠️</span>
-                            </div>
-                            <h2 className="text-2xl text-page-heading text-[#8B5E3C] mb-4">
-                                Something went wrong
-                            </h2>
-                            <p className="text-[#A0956B] mb-8 text-body leading-relaxed">
-                                We're having trouble loading our beautiful products. Please try again.
-                            </p>
-                        </div>
-                        <PremiumCTAButton onClick={() => window.location.reload()} variant="primary">
-                            Try Again
-                        </PremiumCTAButton>
-                    </div>
-                </div>
-            </div>
+            <ServerErrorFallback
+                error={errorObj}
+                resetError={() => {
+                    setError(null)
+                    window.location.reload()
+                }}
+            />
         )
     }
 
@@ -151,16 +142,16 @@ export default function ProductShowcase() {
                 />
 
                 {/* Products Grid */}
-                <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
+                <div className="max-w-7xl mx-auto px-2 md:px-4 lg:px-8 py-4 md:py-8 lg:py-12">
                     {loading ? (
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6 lg:gap-8">
                             {[...Array(8)].map((_, index) => (
                                 <div key={index} className="animate-pulse">
-                                    <div className="aspect-square bg-[#E8E2D4] rounded-3xl mb-4"></div>
-                                    <div className="space-y-3">
-                                        <div className="h-4 bg-[#E8E2D4] rounded-full w-3/4"></div>
-                                        <div className="h-3 bg-[#E8E2D4] rounded-full w-1/2"></div>
-                                        <div className="h-8 bg-[#E8E2D4] rounded-full"></div>
+                                    <div className="aspect-square bg-[#E8E2D4] rounded-3xl mb-3 md:mb-4"></div>
+                                    <div className="space-y-2 md:space-y-3">
+                                        <div className="h-3 md:h-4 bg-[#E8E2D4] rounded-full w-3/4"></div>
+                                        <div className="h-2.5 md:h-3 bg-[#E8E2D4] rounded-full w-1/2"></div>
+                                        <div className="h-6 md:h-8 bg-[#E8E2D4] rounded-full"></div>
                                     </div>
                                 </div>
                             ))}
@@ -192,14 +183,14 @@ export default function ProductShowcase() {
                     ) : (
                         <>
                             {/* Products Count */}
-                            <div className="mb-8">
+                            <div className="mb-6 md:mb-8">
                                 <p className="text-[#A0956B] text-body">
                                     Showing {products.length} {products.length === 1 ? 'product' : 'products'}
                                 </p>
                             </div>
 
-                            {/* Products Grid */}
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                            {/* Products Grid - Reduced gaps for mobile with equal heights */}
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6 lg:gap-8 items-stretch">
                                 {products.map((product) => (
                                     <ProductCard key={product.id} product={product} />
                                 ))}

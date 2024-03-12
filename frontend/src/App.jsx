@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import ErrorBoundary from './components/ErrorBoundary'
 import Navbar from './components/layout/Navbar'
 import HeroSection from './pages/home/HeroSection'
 import IntroSection from './pages/home/IntroSection'
@@ -36,33 +37,35 @@ function HomePage() {
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col">
-        {/* Global Navbar - appears on all pages */}
-        <Navbar />
+    <ErrorBoundary>
+      <Router>
+        <div className="min-h-screen flex flex-col">
+          {/* Global Navbar - appears on all pages */}
+          <Navbar />
 
-        {/* Main content area */}
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/products" element={<ProductShowcase />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/help" element={<FAQ />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/shipping" element={<Shipping />} />
-            <Route path="/returns" element={<Returns />} />
-          </Routes>
-        </main>
+          {/* Main content area */}
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/products" element={<ProductShowcase />} />
+              <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/help" element={<FAQ />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/shipping" element={<Shipping />} />
+              <Route path="/returns" element={<Returns />} />
+            </Routes>
+          </main>
 
-        {/* Global Footer - appears on all pages */}
-        <Footer />
-      </div>
-    </Router>
+          {/* Global Footer - appears on all pages */}
+          <Footer />
+        </div>
+      </Router>
+    </ErrorBoundary>
   )
 }
 
