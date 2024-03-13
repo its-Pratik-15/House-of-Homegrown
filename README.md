@@ -1,5 +1,10 @@
 # House of Homegrown
 
+## 🎨 Design Wireframes
+**Figma Design**: [View Wireframes](https://www.figma.com/design/L9mubmOHQkcOxeBpbOxmVf/Untitled?node-id=0-1&t=W8f5zB0TNJhvpFci-1)
+
+---
+
 A Direct-to-Consumer (D2C) e-commerce platform celebrating Indian everyday living through sustainable, natural, and locally-made products. Inspired by the fundamental needs of "Roti, Kapda aur Makan" (Food, Clothing, and Shelter), this application showcases modern web development practices while honoring traditional Indian craftsmanship.
 
 ## Project Overview
