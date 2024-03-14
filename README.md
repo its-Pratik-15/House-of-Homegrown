@@ -1,6 +1,8 @@
 # House of Homegrown
 
-## 🎨 Design Wireframes
+## Design Wireframes
+![Wireframes](docs/images/wire-frames.png)
+
 **Figma Design**: [View Wireframes](https://www.figma.com/design/L9mubmOHQkcOxeBpbOxmVf/Untitled?node-id=0-1&t=W8f5zB0TNJhvpFci-1)
 
 ---
