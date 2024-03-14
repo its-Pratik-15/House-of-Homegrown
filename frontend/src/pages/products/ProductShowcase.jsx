@@ -131,7 +131,7 @@ export default function ProductShowcase() {
 
     return (
         <div className="min-h-screen bg-[#FAFAF8]">
-            <div className="pt-20">
+            <div className="pt-24 xl:pt-20">
                 {/* Filter Section */}
                 <SimpleFilter
                     categories={categories}

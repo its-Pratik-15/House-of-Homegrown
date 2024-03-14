@@ -111,7 +111,7 @@ export default function ProductDetail() {
     const isLowStock = product.inventory && product.inventory.stockQuantity <= 5 && product.inventory.stockQuantity > 0
 
     return (
-        <div className="min-h-screen bg-[#FAFAF8] pt-16">
+        <div className="min-h-screen bg-[#FAFAF8] pt-24 xl:pt-16">
             <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6">
                 {/* Back Button */}
                 <button
