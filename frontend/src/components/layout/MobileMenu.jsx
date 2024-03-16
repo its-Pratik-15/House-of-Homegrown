@@ -175,13 +175,13 @@ export default function MobileMenu({ isOpen, onClose }) {
 
     return (
         <Sheet open={isOpen} onOpenChange={onClose}>
-            <SheetContent side="left" className="w-80 p-0 bg-[#F5F1E8] border-gray-200 [&>button]:text-gray-900 [&>button]:hover:text-gray-700">
-                <SheetHeader className="p-4 border-b border-gray-200">
+            <SheetContent side="left" className="w-80 p-0 bg-[#F5F1E8] border-gray-200 [&>button]:text-gray-900 [&>button]:hover:text-gray-700 flex flex-col max-h-screen">
+                <SheetHeader className="p-4 border-b border-gray-200 shrink-0">
                     <SheetTitle className="text-gray-900">Menu</SheetTitle>
                 </SheetHeader>
 
                 {/* Search Bar */}
-                <div className="p-4 pb-2 border-b border-gray-200">
+                <div className="p-4 pb-2 border-b border-gray-200 shrink-0">
                     <form onSubmit={handleSearch}>
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-4 w-4" />
@@ -198,7 +198,7 @@ export default function MobileMenu({ isOpen, onClose }) {
                 </div>
 
                 {/* Menu Items */}
-                <nav className="p-4 pt-2">
+                <nav className="p-4 pt-2 flex-1 overflow-y-auto custom-scrollbar">
                     {/* Accordion Sections */}
                     <div className="space-y-0">
                         {menuSections.map((section, index) => (
