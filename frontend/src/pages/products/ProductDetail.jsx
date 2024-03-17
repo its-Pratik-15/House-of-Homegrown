@@ -283,8 +283,12 @@ export default function ProductDetail() {
                             {/* Buy Now Button */}
                             <PremiumCTAButton
                                 onClick={() => {
-                                    handleAddToCart()
-                                    // Navigate to checkout or cart
+                                    navigate('/checkout', {
+                                        state: {
+                                            product: product,
+                                            quantity: quantity
+                                        }
+                                    })
                                 }}
                                 variant="primary"
                                 className="w-full"

@@ -308,8 +308,7 @@ export default function Cart() {
                             {/* Checkout Button */}
                             <PremiumCTAButton
                                 onClick={() => {
-                                    // Navigate to checkout
-                                    console.log('Proceeding to checkout...')
+                                    navigate('/checkout')
                                 }}
                                 variant="primary"
                                 className="w-full mb-4"

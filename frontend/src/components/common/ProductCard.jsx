@@ -149,8 +149,13 @@ export default function ProductCard({ product }) {
                     <button
                         onClick={(e) => {
                             e.stopPropagation()
-                            handleAddToCart()
-                            // Navigate to checkout or cart page
+                            // Navigate to checkout with product data
+                            navigate('/checkout', {
+                                state: {
+                                    product: product,
+                                    quantity: 1
+                                }
+                            })
                         }}
                         disabled={isOutOfStock}
                         className={`flex-1 py-2 px-3 text-xs font-medium rounded-md transition-all duration-300 ${isOutOfStock
