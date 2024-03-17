@@ -32,9 +32,9 @@ export default function HeroSection() {
             </div>
 
             {/* Content Overlay */}
-            <div className="relative z-10 h-full flex flex-col justify-center items-center px-6 text-center md:justify-start md:items-end md:text-right md:pr-16 md:pt-32">
+            <div className="relative z-10 h-full flex flex-col justify-center items-center px-6 text-center md:justify-center md:items-center md:text-center">
                 {/* Mobile Text - Positioned in empty space area */}
-                <div className="max-w-sm space-y-6 mb-16 md:mb-0 md:max-w-lg md:space-y-8 md:hidden absolute right-6 top-1/3 transform -translate-y-1/2 text-right">
+                <div className="max-w-sm space-y-6 mb-16 md:mb-0 md:max-w-4xl md:space-y-10 md:hidden absolute right-6 top-1/3 transform -translate-y-1/2 text-right">
                     {/* Main Tagline */}
                     <h1 className="text-3xl font-bold text-white leading-tight drop-shadow-lg">
                         Rooted in India.
@@ -58,33 +58,30 @@ export default function HeroSection() {
                     </div>
                 </div>
 
-                {/* Desktop Text */}
-                <div className="hidden md:block max-w-lg space-y-8">
+                {/* Desktop Text - Centered */}
+                <div className="hidden md:block max-w-5xl space-y-10 text-center">
                     {/* Main Tagline */}
-                    <h1 className="text-6xl font-bold drop-shadow-none text-[#FAFAF8] leading-tight">
+                    <h1 className="text-5xl lg:text-7xl font-bold drop-shadow-none text-[#FAFAF8] leading-tight">
                         Rooted in India.
                         <br />
-                        <span className="block text-[#FAFAF8]">
+                        <span className="block text-[#FAFAF8] mt-2">
                             Made for Everyday Living.
                         </span>
                     </h1>
 
-                    {/* Subtext - Same size, broken by sentence */}
-                    <div className="drop-shadow-none text-[#EDE6DB] space-y-1">
-                        <p className="text-xl leading-relaxed">
-                            Discover sustainable,
+                    {/* Subtext - Centered and refined */}
+                    <div className="drop-shadow-none text-[#EDE6DB] space-y-2 max-w-3xl mx-auto">
+                        <p className="text-xl lg:text-2xl leading-relaxed">
+                            Discover sustainable, handcrafted products that celebrate
                         </p>
-                        <p className="text-xl leading-relaxed">
-                            handcrafted products that celebrate
-                        </p>
-                        <p className="text-xl leading-relaxed">
+                        <p className="text-xl lg:text-2xl leading-relaxed">
                             Indian heritage and conscious living.
                         </p>
                     </div>
 
                     {/* CTA Button - Desktop positioning */}
-                    <div className="mt-10">
-                        <PremiumCTAButton to="/products" variant="primary">
+                    <div className="mt-12">
+                        <PremiumCTAButton to="/products" variant="primary" className="text-lg px-8 py-4">
                             Shop Now
                         </PremiumCTAButton>
                     </div>
