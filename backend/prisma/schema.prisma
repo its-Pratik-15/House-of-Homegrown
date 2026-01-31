@@ -3,8 +3,9 @@
 
 // Database
 datasource db {
-  provider = "postgres"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // Prisma Client
@@ -72,6 +73,7 @@ model Inventory {
   productId        Int      @id
   stockQuantity    Int      @default(0)
   reservedQuantity Int      @default(0)
+  soldCount        Int      @default(0)
   updatedAt        DateTime @default(now())
   
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
