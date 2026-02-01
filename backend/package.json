@@ -1,7 +1,7 @@
 {
-    "name": "backend",
+    "name": "house-of-homegrown-backend",
     "version": "1.0.0",
-    "description": "Backend API server",
+    "description": "House of Homegrown - Backend API server for e-commerce platform",
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
