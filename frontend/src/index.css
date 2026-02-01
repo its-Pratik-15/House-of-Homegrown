@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Cormorant:wght@400;500;600&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -115,9 +118,147 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  /* Custom focus styles with white shadow */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* Typography Classes */
+  .text-page-heading {
+    @apply font-semibold;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .text-section-title {
+    @apply font-medium;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .text-body {
+    @apply font-normal;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .text-price {
+    @apply font-semibold;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .text-button {
+    @apply font-medium;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Brand Typography Classes */
+  .brand-top-line {
+    font-family: 'Cormorant SC', serif;
+    @apply font-medium tracking-wider;
+    color: #3A2A1E;
+  }
+
+  .brand-bottom-line {
+    font-family: 'Fraunces', serif;
+    @apply font-normal;
+    color: #3A2A1E;
+  }
+
+  .brand-underline {
+    background-color: #8B5E3C;
+  }
+
+  /* Navbar Brand Typography */
+  .navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #3A2A1E;
+  }
+
+  .navbar-brand-light {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: white;
+  }
+}
+
+/* Custom scrollbar styles for filter components */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #D4C4B3 #F5F1E8;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #F5F1E8;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #D4C4B3;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #8B5E3C;
+}
+
+/* Premium CTA Button Animations */
+@keyframes breathing {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 32px rgba(47, 125, 50, 0.3);
+  }
+
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 12px 40px rgba(47, 125, 50, 0.4);
+  }
+}
+
+@keyframes breathing-secondary {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 32px rgba(139, 94, 60, 0.3);
+  }
+
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 12px 40px rgba(139, 94, 60, 0.4);
+  }
+}
+
+.animate-breathing {
+  animation: breathing 3.5s ease-in-out infinite;
+}
+
+.animate-breathing-secondary {
+  animation: breathing-secondary 3.5s ease-in-out infinite;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-breathing,
+  .animate-breathing-secondary {
+    animation: none;
   }
 }

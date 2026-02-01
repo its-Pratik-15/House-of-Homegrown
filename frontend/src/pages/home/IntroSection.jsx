@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import PremiumCTAButton from '@/components/ui/premium-cta-button'
 
 export default function IntroSection() {
     return (
@@ -19,12 +19,9 @@ export default function IntroSection() {
                     We're a homegrown D2C brand offering sustainable, Indian-made products.
                 </p>
 
-                <Button
-                    variant="outline"
-                    className="border-primary text-primary hover:bg-primary hover:text-white rounded-full px-6"
-                >
+                <PremiumCTAButton to="/about" variant="secondary">
                     Learn More
-                </Button>
+                </PremiumCTAButton>
             </div>
         </section>
     )

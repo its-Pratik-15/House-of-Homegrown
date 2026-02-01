@@ -1,3 +1,4 @@
+import PremiumCTAButton from '@/components/ui/premium-cta-button'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 
@@ -118,15 +119,13 @@ export default function CategorySection() {
                                             {category.description}
                                         </p>
 
-                                        {/* CTA Button - Soft Rounded, Earthy Brown */}
-                                        <Link to={`/${category.id}`}>
-                                            <Button
-                                                size="lg"
-                                                className="bg-[#8B5E3C] hover:bg-[#7A5233] text-white rounded-2xl px-8 py-3 text-base font-medium shadow-lg border-none transition-all duration-300"
-                                            >
-                                                {category.cta}
-                                            </Button>
-                                        </Link>
+                                        {/* CTA Button - Premium Style */}
+                                        <PremiumCTAButton
+                                            to={`/products?category=${category.id.toUpperCase().replace('-', '_')}`}
+                                            variant="secondary"
+                                        >
+                                            {category.cta}
+                                        </PremiumCTAButton>
                                     </div>
                                 </div>
                             </div>
