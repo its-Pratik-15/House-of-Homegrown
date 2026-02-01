@@ -1,172 +1,298 @@
 # House of Homegrown
 
-A premium Indian D2C e-commerce platform for sustainable, handcrafted products made with love and tradition.
+A Direct-to-Consumer (D2C) e-commerce platform celebrating Indian everyday living through sustainable, natural, and locally-made products. Inspired by the fundamental needs of "Roti, Kapda aur Makan" (Food, Clothing, and Shelter), this application showcases modern web development practices while honoring traditional Indian craftsmanship.
 
-## 🏠 About
+## Project Overview
 
-House of Homegrown is a modern e-commerce platform that celebrates traditional Indian craftsmanship while embracing sustainable practices. Inspired by "Roti, Kapda aur Makan", we offer a curated collection of:
+House of Homegrown is a full-stack e-commerce application built to demonstrate modern web development capabilities in the D2C space. The platform focuses on curating and selling sustainable products across four key categories that represent essential aspects of Indian daily life.
 
-- **Textiles** - Handwoven fabrics and traditional textiles
-- **Home & Living** - Artisan-made home decor and functional items  
-- **Wellness** - Natural and organic personal care products
-- **Lifestyle** - Eco-friendly everyday essentials
+### Product Categories
 
-## 🚀 Features
+- **Textiles** - Traditional fabrics, clothing, and textile products
+- **Home & Living** - Furniture, decor, and household essentials
+- **Lifestyle** - Personal accessories and daily-use items
+- **Wellness** - Natural health and wellness products
 
-- **Premium D2C Design** - Clean, modern interface with earthy brand colors
-- **Guest Cart System** - JWT-based authentication for seamless shopping
-- **Mobile-First** - Responsive design optimized for all devices
-- **Product Showcase** - Beautiful product galleries with filtering
-- **Sustainable Focus** - Highlighting eco-friendly and traditional products
+## Key Features
 
-## 🛠 Tech Stack
+### Frontend Features
+
+- Responsive product catalog with category-based filtering
+- Product detail pages with image galleries
+- Shopping cart functionality with persistent storage
+- Mobile-first responsive design
+- Clean, minimal user interface following D2C design principles
+- Search functionality across products and categories
+- Guest user support with session management
+
+### Backend Features
+
+- RESTful API architecture
+- Product and category management
+- Inventory tracking system
+- Guest session handling with JWT tokens
+- Cookie-based session persistence
+- Database seeding with sample products
+- CORS-enabled API for frontend integration
+
+## Tech Stack
 
 ### Frontend
-- **React 19** with Vite
-- **Tailwind CSS** for styling
-- **React Router** for navigation
-- **Lucide React** for icons
-- **shadcn/ui** components
+
+- **React** - Component-based UI library
+- **TypeScript** - Type-safe JavaScript development
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Modern React component library
+- **lucide-react** - Icon library
+- **Axios** - HTTP client for API communication
 
 ### Backend
-- **Node.js** with Express
-- **Prisma ORM** with PostgreSQL
-- **JWT Authentication** for guest sessions
-- **Cookie-based** session management
 
-## 🎨 Brand Colors
+- **Node.js** - JavaScript runtime environment
+- **Express.js** - Web application framework
+- **Prisma ORM** - Database toolkit and query builder
+- **PostgreSQL** - Relational database
+- **cookie-parser** - Cookie parsing middleware
 
-- **Primary Earthy Brown**: `#8B5E3C`
-- **Secondary Beige**: `#F5F1E8` 
-- **Accent Green**: `#6B8E23`
-- **Background**: `#FAFAF8`
+## Entity Relationship (ER) Model
 
-## 📱 Typography
+The application uses a relational database structure designed to support e-commerce operations while maintaining data integrity and scalability.
 
-- **Brand Name**: Playfair Display (serif)
-- **Headings**: Inter SemiBold
-- **Body Text**: Inter Regular
-- **Buttons**: Inter Medium
+### Core Entities
 
-## 🚀 Getting Started
+**User**
+- Stores customer information including authentication details
+- Fields: id, name, email, password, phone, timestamps
 
-### Prerequisites
-- Node.js 18+
-- PostgreSQL database
-- npm or yarn
+**Category**
+- Defines product categories with enum-based types
+- Fields: id, name, type (TEXTILES, HOME_LIVING, LIFESTYLE, WELLNESS), timestamps
 
-### Installation
+**Product**
+- Central entity containing product information
+- Fields: id, title, slug, description, price, mrp, brand, categoryId, timestamps
 
-1. Clone the repository
-```bash
-git clone https://github.com/your-username/house-of-homegrown.git
-cd house-of-homegrown
-```
+**ProductImage**
+- Manages multiple images per product with ordering
+- Fields: id, productId, url, position, timestamps
 
-2. Install backend dependencies
-```bash
-cd backend
-npm install
-```
-
-3. Install frontend dependencies
-```bash
-cd ../frontend
-npm install
-```
-
-4. Set up environment variables
-```bash
-# Backend (.env)
-DATABASE_URL="your-postgresql-connection-string"
-JWT_SECRET="your-jwt-secret"
-
-# Frontend (.env)
-VITE_API_URL="http://localhost:3001/api"
-```
-
-5. Run database migrations
-```bash
-cd backend
-npx prisma migrate dev
-npx prisma db seed
-```
-
-6. Start the development servers
-```bash
-# Backend (Terminal 1)
-cd backend
-npm start
-
-# Frontend (Terminal 2)  
-cd frontend
-npm run dev
-```
-
-## 📦 Project Structure
-
-```
-house-of-homegrown/
-├── backend/
-│   ├── prisma/          # Database schema and migrations
-│   ├── src/
-│   │   ├── controllers/ # Route handlers
-│   │   ├── services/    # Business logic
-│   │   ├── middlewares/ # Custom middleware
-│   │   └── routes/      # API routes
-│   └── server.js        # Express server
-├── frontend/
-│   ├── public/          # Static assets
-│   ├── src/
-│   │   ├── components/  # React components
-│   │   ├── pages/       # Page components
-│   │   ├── services/    # API services
-│   │   ├── hooks/       # Custom hooks
-│   │   └── utils/       # Utility functions
-│   └── index.html       # HTML template
-└── docs/                # Documentation
-```
-
-
-## ER Model
-
-![ER Model Diagram](docs/images/er-model.png)
-
-### Tables (Models in Prisma)
-
-- **User** - Customer accounts with authentication fields (name, email, password, phone)
-- **Category** - Product categories with enum types (TEXTILES, HOME_LIVING, WELLNESS, LIFESTYLE)
-- **Product** - Product catalog with pricing, descriptions, brand information, and category relationships
-- **ProductImage** - Multiple images per product with position ordering for display
-- **Inventory** - Stock management with available and reserved quantities tracking
-- **Cart** - Shopping cart functionality with timestamp tracking
-- **CartItem** - Individual items in shopping carts with quantity and price snapshots
+**Inventory**
+- Tracks stock levels and sales data
+- Fields: id, productId, stockQuantity, reservedQuantity, soldCount, timestamps
 
 ### Key Relationships
 
-- **User to Cart**: One-to-Many (Users can have multiple carts for different purposes)
-- **Category to Product**: One-to-Many (Each category contains multiple products)
-- **Product to ProductImage**: One-to-Many (Products can have multiple images)
-- **Product to Inventory**: One-to-One (Each product has dedicated inventory tracking)
-- **Cart to CartItem**: One-to-Many (Carts contain multiple items)
-- **Product to CartItem**: One-to-Many (Products can appear in multiple carts)
+- **Category → Products**: One-to-many relationship where each category contains multiple products
+- **Product → Images**: One-to-many relationship allowing multiple images per product
+- **Product → Inventory**: One-to-one relationship for stock management
+- **Product → Category**: Many-to-one relationship linking products to their categories
 
-### Design Features
+The Prisma schema serves as the single source of truth for database structure and relationships.
 
-- **Price Tracking**: CartItem stores `priceAtTime` to preserve pricing when items are added to cart
-- **Inventory Management**: Separate `stockQuantity` and `reservedQuantity` for better stock control
-- **Flexible Images**: Multiple product images with position-based ordering
-- **Cart Status**: Simple cart management with creation and update timestamps
-- **Data Integrity**: Cascade deletes and unique constraints ensure data consistency
+## Project Structure
 
-### Enums
+```
+house-of-homegrown/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── common/          # Reusable components
+│   │   │   ├── filters/         # Product filtering components
+│   │   │   ├── layout/          # Layout components (Header, Footer)
+│   │   │   └── ui/              # shadcn/ui components
+│   │   ├── pages/
+│   │   │   ├── home/            # Homepage sections
+│   │   │   └── products/        # Product-related pages
+│   │   ├── services/            # API communication layer
+│   │   ├── hooks/               # Custom React hooks
+│   │   ├── utils/               # Utility functions
+│   │   └── types/               # TypeScript type definitions
+│   ├── public/                  # Static assets
+│   └── package.json
+├── backend/
+│   ├── src/
+│   │   ├── controllers/         # Request handlers
+│   │   ├── services/            # Business logic layer
+│   │   ├── middlewares/         # Custom middleware
+│   │   └── routes/              # API route definitions
+│   ├── prisma/
+│   │   ├── schema.prisma        # Database schema
+│   │   ├── migrations/          # Database migrations
+│   │   └── seed.js              # Sample data seeding
+│   ├── server.js                # Application entry point
+│   └── package.json
+└── README.md
+```
 
-**CategoryType**
-- `TEXTILES` - Clothing, fabrics, and textile products
-- `HOME_LIVING` - Home decor and living essentials
-- `WELLNESS` - Health and wellness products
-- `LIFESTYLE` - Lifestyle and personal care items
+## Core Modules
 
+### Product Management
+- Product CRUD operations with category association
+- Image management with multiple images per product
+- Slug-based URL generation for SEO-friendly routes
+- Price management with MRP and selling price differentiation
+
+### Category System
+- Enum-based category types ensuring data consistency
+- Category-based product filtering and organization
+- Hierarchical product organization
+
+### Inventory Management
+- Real-time stock quantity tracking
+- Reserved quantity management for cart items
+- Sales analytics with sold count tracking
+- Stock availability validation
+
+## Design Philosophy
+
+The application follows D2C design principles emphasizing:
+
+- **Minimalism** - Clean interfaces that highlight products over UI elements
+- **Natural Aesthetics** - Earth-tone color palette reflecting sustainable values
+- **Mobile-First** - Responsive design prioritizing mobile user experience
+- **Performance** - Optimized loading and smooth interactions
+- **Accessibility** - Semantic HTML and keyboard navigation support
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- PostgreSQL database
+- npm or yarn package manager
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+```bash
+cd backend
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure environment variables:
+```bash
+# Create .env file
+DATABASE_URL="postgresql://username:password@localhost:5432/house_of_homegrown"
+JWT_SECRET="your-jwt-secret-key"
+PORT=3001
+```
+
+4. Set up the database:
+```bash
+# Generate Prisma client
+npx prisma generate
+
+# Run migrations
+npx prisma migrate dev
+
+# Seed sample data
+npm run db:seed
+```
+
+5. Start the development server:
+```bash
+npm start
+```
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure environment variables:
+```bash
+# Create .env file
+VITE_API_URL=http://localhost:3001/api
+```
+
+4. Start the development server:
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173` with the API running on `http://localhost:3001`.
+
+## API Communication
+
+The frontend communicates with the backend through a RESTful API structure:
+
+### Core Endpoints
+
+- `GET /api/products` - Retrieve products with filtering options
+- `GET /api/products/:id` - Get individual product details
+- `GET /api/categories` - Fetch all product categories
+- `POST /api/cart/items` - Add items to shopping cart
+- `GET /api/cart` - Retrieve cart contents
+
+### Request/Response Pattern
+
+All API responses follow a consistent structure:
+```json
+{
+  "success": true,
+  "data": {},
+  "message": "Optional message"
+}
+```
+
+Error responses include appropriate HTTP status codes and descriptive error messages.
+
+## Sample Data and Seeding
+
+The application includes a comprehensive seeding script that populates the database with:
+
+- 4 product categories (Textiles, Home & Living, Lifestyle, Wellness)
+- 11+ sample products with realistic pricing and descriptions
+- Product images with proper positioning
+- Inventory data with stock quantities
+- Relationships between all entities
+
+Run the seeding script:
+```bash
+cd backend
+npm run db:seed
+```
+
+## Future Improvements
+
+- User authentication and account management
+- Payment gateway integration
+- Order management system
+- Product reviews and ratings
+- Advanced search with filters
+- Wishlist functionality
+- Admin dashboard for product management
+- Email notifications
+- Analytics and reporting
+- Multi-language support
+
+## Project Goals
+
+This project demonstrates:
+
+- **Full-stack Development** - Complete frontend and backend implementation
+- **Modern React Patterns** - Hooks, context, and component composition
+- **Database Design** - Normalized schema with proper relationships
+- **API Design** - RESTful endpoints with consistent patterns
+- **Type Safety** - TypeScript implementation for better code quality
+- **Responsive Design** - Mobile-first approach with modern CSS
+- **Code Organization** - Modular architecture with separation of concerns
+- **Development Workflow** - Environment configuration and database migrations
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
