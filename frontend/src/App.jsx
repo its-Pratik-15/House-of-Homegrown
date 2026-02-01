@@ -1,30 +1,16 @@
 import { useState } from 'react'
-import Header from './components/Header'
-import MobileMenu from './components/MobileMenu'
-import HeroSection from './components/HeroSection'
-import IntroSection from './components/IntroSection'
-import CategorySection from './components/CategorySection'
-import Footer from './components/Footer'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Navbar from './components/layout/Navbar'
+import HeroSection from './pages/home/HeroSection'
+import IntroSection from './pages/home/IntroSection'
+import CategorySection from './pages/home/CategorySection'
+import Footer from './components/layout/Footer'
+import ProductShowcase from './pages/products/ProductShowcase'
 
-function App() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  const handleMenuClick = () => {
-    setIsMobileMenuOpen(true)
-  }
-
-  const handleMenuClose = () => {
-    setIsMobileMenuOpen(false)
-  }
-
+// Home Page Component
+function HomePage() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header - Now absolute positioned over hero */}
-      <Header onMenuClick={handleMenuClick} />
-
-      {/* Mobile Menu */}
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={handleMenuClose} />
-
       {/* Main Content */}
       <main>
         {/* Hero Section - Now extends full width behind header */}
@@ -40,6 +26,20 @@ function App() {
       {/* Footer */}
       <Footer />
     </div>
+  )
+}
+
+function App() {
+  return (
+    <Router>
+      {/* Global Navbar - appears on all pages */}
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/products" element={<ProductShowcase />} />
+      </Routes>
+    </Router>
   )
 }
 

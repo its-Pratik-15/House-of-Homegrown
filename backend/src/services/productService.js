@@ -3,13 +3,17 @@ const prisma = require('../../prisma/prismaClient');
 class ProductService {
   async getAllProducts(filters = {}) {
     try {
-      const { category, type, limit } = filters;
+      const { category, categoryId, type, limit, search, sortBy, page } = filters;
       
       let whereClause = {};
       let orderBy = { createdAt: 'desc' };
       
-      // Filter by category
-      if (category) {
+      // Filter by categoryId (direct ID)
+      if (categoryId) {
+        whereClause.categoryId = parseInt(categoryId);
+      }
+      // Filter by category type (fallback for existing functionality)
+      else if (category) {
         const categoryRecord = await prisma.category.findFirst({
           where: { type: category.toUpperCase() }
         });
@@ -17,17 +21,60 @@ class ProductService {
           whereClause.categoryId = categoryRecord.id;
         } else {
           // Category provided but not found - return empty results
-          return [];
+          return {
+            products: [],
+            totalPages: 0,
+            currentPage: 1,
+            totalCount: 0
+          };
         }
       }
       
-      // Filter by type (trending)
+      // Search functionality
+      if (search) {
+        whereClause.OR = [
+          { title: { contains: search, mode: 'insensitive' } },
+          { shortDescription: { contains: search, mode: 'insensitive' } },
+          { longDescription: { contains: search, mode: 'insensitive' } },
+          { brand: { contains: search, mode: 'insensitive' } }
+        ];
+      }
+      
+      // Sorting
+      if (sortBy) {
+        switch (sortBy) {
+          case 'price':
+            orderBy = { price: 'asc' };
+            break;
+          case 'name':
+            orderBy = { title: 'asc' };
+            break;
+          case 'createdAt':
+            orderBy = { createdAt: 'desc' };
+            break;
+          default:
+            orderBy = { createdAt: 'desc' };
+        }
+      }
+      
+      // Filter by type (trending) - handle inventory relation properly
       if (type === 'trending') {
         whereClause.inventory = {
           soldCount: { gte: 3 }
         };
-        orderBy = { inventory: { soldCount: 'desc' } };
+        orderBy = { 
+          inventory: { 
+            soldCount: 'desc' 
+          } 
+        };
       }
+      
+      // Pagination
+      const pageNum = page ? parseInt(page) : 1;
+      const limitNum = limit ? parseInt(limit) : 12;
+      const skip = (pageNum - 1) * limitNum;
+      
+      console.log('Query params:', { whereClause, orderBy, skip, take: limitNum });
       
       const products = await prisma.product.findMany({
         where: whereClause,
@@ -39,11 +86,23 @@ class ProductService {
           inventory: true
         },
         orderBy,
-        take: limit ? parseInt(limit) : undefined
+        skip,
+        take: limitNum
       });
       
-      return products;
+      // Get total count for pagination
+      const totalCount = await prisma.product.count({
+        where: whereClause
+      });
+      
+      return {
+        products,
+        totalPages: Math.ceil(totalCount / limitNum),
+        currentPage: pageNum,
+        totalCount
+      };
     } catch (error) {
+      console.error('ProductService error:', error);
       throw new Error(`Failed to fetch products: ${error.message}`);
     }
   }

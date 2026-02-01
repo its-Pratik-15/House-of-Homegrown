@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 async function main() {
     console.log("Seeding database...");
 
-    // 1️⃣ Category: WELLNESS
+    // Category: WELLNESS
     const wellnessCategory = await prisma.category.upsert({
         where: { type: "WELLNESS" },
         update: {},
@@ -14,7 +14,7 @@ async function main() {
         },
     });
 
-    // 2️⃣ Category: HOME_LIVING
+    // Category: HOME_LIVING
     const homeLivingCategory = await prisma.category.upsert({
         where: { type: "HOME_LIVING" },
         update: {},
@@ -23,7 +23,7 @@ async function main() {
         },
     });
 
-    // 3️⃣ Category: LIFESTYLE
+    // Category: LIFESTYLE
     const lifestyleCategory = await prisma.category.upsert({
         where: { type: "LIFESTYLE" },
         update: {},
@@ -32,7 +32,7 @@ async function main() {
         },
     });
 
-    // 4️⃣ Category: TEXTILES
+    // Category: TEXTILES
     const textilesCategory = await prisma.category.upsert({
         where: { type: "TEXTILES" },
         update: {},
@@ -41,11 +41,11 @@ async function main() {
         },
     });
 
-    // 🧴 Product: Solid Shampoo / Conditioner Bar
+    // Product: Solid Shampoo / Conditioner Bar
     const shampooBar = await prisma.product.create({
         data: {
-            title: "Argila Verde Shampoo Bar",
-            slug: "argila-verde-shampoo-bar",
+            title: "Argila Branca Shoap Bar",
+            slug: "argila-branca-shoap-bar",
             shortDescription: "Natural solid shampoo bar for oily hair",
             longDescription: "A sustainable shampoo bar made with green clay and rosemary oil. Ideal for oily scalp, plastic-free and travel-friendly.",
             price: 399,
@@ -54,7 +54,7 @@ async function main() {
             categoryId: wellnessCategory.id,
             images: {
                 create: [{
-                    url: "", // image URL intentionally left blank
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957194/soap_o0czow.webp",
                     position: 0,
                 }],
             },
@@ -68,7 +68,7 @@ async function main() {
         },
     });
 
-    // 🧴 Product: Body Wash
+    // Product: Body Wash
     const bodyWash = await prisma.product.create({
         data: {
             title: "Bergamot & Hinoki Body Wash",
@@ -81,7 +81,7 @@ async function main() {
             categoryId: wellnessCategory.id,
             images: {
                 create: [{
-                    url: "", // image URL intentionally left blank
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957194/body-wash_nbd4ll.webp",
                     position: 0,
                 }],
             },
@@ -95,7 +95,7 @@ async function main() {
         },
     });
 
-    // 🕯️ Soy Wax Candle
+    // Soy Wax Candle
     await prisma.product.create({
         data: {
             title: "After Hours Soy Wax Candle",
@@ -108,7 +108,7 @@ async function main() {
             categoryId: homeLivingCategory.id,
             images: {
                 create: [{
-                    url: "", // intentionally blank
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957195/soy-wax-candel_homj9z.webp",
                     position: 0,
                 }],
             },
@@ -122,7 +122,7 @@ async function main() {
         },
     });
 
-    // 💧 Almond Hair Oil
+    // Almond Hair Oil
     await prisma.product.create({
         data: {
             title: "Almond Hair Oil with Vitamin E",
@@ -135,7 +135,7 @@ async function main() {
             categoryId: wellnessCategory.id,
             images: {
                 create: [{
-                    url: "", // intentionally blank
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957038/oil_xxhcw5.webp",
                     position: 0,
                 }],
             },
@@ -149,7 +149,7 @@ async function main() {
         },
     });
 
-    // 👜 Eco Tote Bag
+    // Eco Tote Bag
     await prisma.product.create({
         data: {
             title: "Reusable Eco Tote Bag",
@@ -162,7 +162,7 @@ async function main() {
             categoryId: lifestyleCategory.id,
             images: {
                 create: [{
-                    url: "", // intentionally blank
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957159/tote_bag_rd5wiz.webp",
                     position: 0,
                 }],
             },
@@ -176,7 +176,7 @@ async function main() {
         },
     });
 
-    // 🚰 Stainless Steel Water Bottle – White
+    // Stainless Steel Water Bottle – White
     await prisma.product.create({
         data: {
             title: "Insulated Stainless Steel Water Bottle (White)",
@@ -189,7 +189,7 @@ async function main() {
             categoryId: lifestyleCategory.id,
             images: {
                 create: [{
-                    url: "", 
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957129/stell_water_bootel_2_mb11wl.webp", 
                     position: 0 
                 }], // intentionally blank
             },
@@ -203,7 +203,7 @@ async function main() {
         },
     });
 
-    // 🚰 Stainless Steel Water Bottle – Black
+    // Stainless Steel Water Bottle – Black
     await prisma.product.create({
         data: {
             title: "Insulated Stainless Steel Water Bottle (Black)",
@@ -216,9 +216,9 @@ async function main() {
             categoryId: lifestyleCategory.id,
             images: {
                 create: [{
-                    url: "", 
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957840/black-bottel_yo5xkx.jpg", 
                     position: 0 
-                }], // intentionally blank
+                }], 
             },
             inventory: {
                 create: {
@@ -243,9 +243,9 @@ async function main() {
             categoryId: homeLivingCategory.id,
             images: {
                 create: [{
-                    url: "", 
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1769957961/eramic_plate_bwze8e.webp", 
                     position: 0 
-                }], // intentionally blank
+                }], 
             },
             inventory: {
                 create: {
@@ -257,14 +257,14 @@ async function main() {
         },
     });
 
-    console.log("✅ Seeding completed successfully!");
+    console.log("Seeding completed successfully!");
     console.log(`Created categories: WELLNESS, HOME_LIVING, LIFESTYLE, TEXTILES`);
     console.log(`Created 8 products with inventory data`);
 }
 
 main()
     .catch((e) => {
-        console.error("❌ Seeding error:", e);
+        console.error("Seeding error:", e);
         process.exit(1);
     })
     .finally(async () => {

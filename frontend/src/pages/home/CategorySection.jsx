@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 
 const categories = [
     {
@@ -118,12 +119,14 @@ export default function CategorySection() {
                                         </p>
 
                                         {/* CTA Button - Soft Rounded, Earthy Brown */}
-                                        <Button
-                                            size="lg"
-                                            className="bg-[#8B5E3C] hover:bg-[#7A5233] text-white rounded-2xl px-8 py-3 text-base font-medium shadow-lg border-none transition-all duration-300"
-                                        >
-                                            {category.cta}
-                                        </Button>
+                                        <Link to={`/${category.id}`}>
+                                            <Button
+                                                size="lg"
+                                                className="bg-[#8B5E3C] hover:bg-[#7A5233] text-white rounded-2xl px-8 py-3 text-base font-medium shadow-lg border-none transition-all duration-300"
+                                            >
+                                                {category.cta}
+                                            </Button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -165,48 +168,50 @@ export default function CategorySection() {
                                     </div>
                                 )}
 
-                                <Button
-                                    size="sm"
-                                    className="rounded-full px-6 hover:opacity-90"
-                                    style={
-                                        category.id === 'wellness'
-                                            ? {
-                                                backgroundColor: '#FFFFFF',
-                                                color: '#2D4A2B',
-                                                boxShadow: '0 8px 12px rgba(0, 0, 0, 0.1)',
-                                                border: 'none'
-                                            }
-                                            : category.id === 'lifestyle'
+                                <Link to={`/${category.id}`}>
+                                    <Button
+                                        size="sm"
+                                        className="rounded-full px-6 hover:opacity-90"
+                                        style={
+                                            category.id === 'wellness'
                                                 ? {
                                                     backgroundColor: '#FFFFFF',
-                                                    color: '#4A3429',
+                                                    color: '#2D4A2B',
                                                     boxShadow: '0 8px 12px rgba(0, 0, 0, 0.1)',
                                                     border: 'none'
                                                 }
-                                                : category.id === 'textiles'
+                                                : category.id === 'lifestyle'
                                                     ? {
                                                         backgroundColor: '#FFFFFF',
-                                                        color: '#2D4A2B',
+                                                        color: '#4A3429',
                                                         boxShadow: '0 8px 12px rgba(0, 0, 0, 0.1)',
                                                         border: 'none'
                                                     }
-                                                    : category.id === 'home-living'
+                                                    : category.id === 'textiles'
                                                         ? {
-                                                            backgroundColor: '#2D4A2B',
-                                                            color: '#F5F3F0',
+                                                            backgroundColor: '#FFFFFF',
+                                                            color: '#2D4A2B',
                                                             boxShadow: '0 8px 12px rgba(0, 0, 0, 0.1)',
                                                             border: 'none'
                                                         }
-                                                        : {
-                                                            backgroundColor: 'rgba(255,255,255,0.2)',
-                                                            color: 'white',
-                                                            boxShadow: '0 8px 12px rgba(0, 0, 0, 0.1)',
-                                                            border: 'none'
-                                                        }
-                                    }
-                                >
-                                    {category.product ? category.product.cta : `Shop ${category.title}`}
-                                </Button>
+                                                        : category.id === 'home-living'
+                                                            ? {
+                                                                backgroundColor: '#2D4A2B',
+                                                                color: '#F5F3F0',
+                                                                boxShadow: '0 8px 12px rgba(0, 0, 0, 0.1)',
+                                                                border: 'none'
+                                                            }
+                                                            : {
+                                                                backgroundColor: 'rgba(255,255,255,0.2)',
+                                                                color: 'white',
+                                                                boxShadow: '0 8px 12px rgba(0, 0, 0, 0.1)',
+                                                                border: 'none'
+                                                            }
+                                        }
+                                    >
+                                        {category.product ? category.product.cta : `Shop ${category.title}`}
+                                    </Button>
+                                </Link>
                             </div>
                         </div>
                     </div>

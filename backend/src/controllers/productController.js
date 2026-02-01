@@ -3,16 +3,25 @@ const productService = require('../services/productService');
 class ProductController {
   async getAllProducts(req, res) {
     try {
-      const { category, type, limit } = req.query;
-      const filters = { category, type, limit };
+      const { category, categoryId, type, limit, search, sortBy, page } = req.query;
+      const filters = { category, categoryId, type, limit, search, sortBy, page };
       
-      const products = await productService.getAllProducts(filters);
+      const result = await productService.getAllProducts(filters);
       
-      res.json({
-        success: true,
-        data: products,
-        count: products.length
-      });
+      // Handle both old format (array) and new format (object with products)
+      if (Array.isArray(result)) {
+        res.json({
+          success: true,
+          data: result,
+          count: result.length
+        });
+      } else {
+        res.json({
+          success: true,
+          data: result,
+          count: result.totalCount
+        });
+      }
     } catch (error) {
       console.error('Error in getAllProducts:', error);
       res.status(500).json({
