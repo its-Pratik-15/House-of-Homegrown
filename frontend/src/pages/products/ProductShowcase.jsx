@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
 import ProductCard from '../../components/common/ProductCard'
 import SimpleFilter from '../../components/filters/SimpleFilter'
+import PremiumCTAButton from '@/components/ui/premium-cta-button'
 
 export default function ProductShowcase() {
     const location = useLocation()
@@ -44,7 +44,7 @@ export default function ProductShowcase() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/categories')
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`)
                 if (response.ok) {
                     const result = await response.json()
                     const categoriesData = result.success ? result.data : result
@@ -77,7 +77,7 @@ export default function ProductShowcase() {
                     }
                 }
 
-                const response = await fetch(`http://localhost:3001/api/products?${params}`)
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/products?${params}`)
                 if (!response.ok) throw new Error('Failed to fetch products')
 
                 const result = await response.json()
@@ -117,16 +117,21 @@ export default function ProductShowcase() {
         return (
             <div className="min-h-screen bg-[#FAFAF8]">
                 <div className="pt-20 px-4">
-                    <div className="max-w-md mx-auto text-center py-12">
-                        <div className="text-red-500 text-lg text-section-title mb-2">Error Loading Products</div>
-                        <p className="text-gray-600 mb-4 text-body">{error}</p>
-                        <Button
-                            onClick={() => window.location.reload()}
-                            className="rounded-2xl bg-[#8B5E3C] hover:bg-[#6B4423] !text-white border-none text-button"
-                            style={{ color: 'white' }}
-                        >
+                    <div className="max-w-md mx-auto text-center py-16">
+                        <div className="mb-8">
+                            <div className="w-16 h-16 bg-[#8B5E3C]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span className="text-2xl">⚠️</span>
+                            </div>
+                            <h2 className="text-2xl text-page-heading text-[#8B5E3C] mb-4">
+                                Something went wrong
+                            </h2>
+                            <p className="text-[#A0956B] mb-8 text-body leading-relaxed">
+                                We're having trouble loading our beautiful products. Please try again.
+                            </p>
+                        </div>
+                        <PremiumCTAButton onClick={() => window.location.reload()} variant="primary">
                             Try Again
-                        </Button>
+                        </PremiumCTAButton>
                     </div>
                 </div>
             </div>
@@ -136,7 +141,7 @@ export default function ProductShowcase() {
     return (
         <div className="min-h-screen bg-[#FAFAF8]">
             <div className="pt-20">
-                {/* Simple Filter */}
+                {/* Filter Section */}
                 <SimpleFilter
                     categories={categories}
                     selectedCategory={selectedCategory}
@@ -146,57 +151,77 @@ export default function ProductShowcase() {
                 />
 
                 {/* Products Grid */}
-                <div className="max-w-7xl mx-auto p-4 md:p-8">
+                <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
                     {loading ? (
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
                             {[...Array(8)].map((_, index) => (
                                 <div key={index} className="animate-pulse">
-                                    <div className="aspect-square bg-[#E8E2D4] rounded-2xl mb-4"></div>
-                                    <div className="space-y-2">
-                                        <div className="h-4 bg-[#E8E2D4] rounded w-3/4"></div>
-                                        <div className="h-4 bg-[#E8E2D4] rounded w-1/2"></div>
-                                        <div className="h-8 bg-[#E8E2D4] rounded"></div>
+                                    <div className="aspect-square bg-[#E8E2D4] rounded-3xl mb-4"></div>
+                                    <div className="space-y-3">
+                                        <div className="h-4 bg-[#E8E2D4] rounded-full w-3/4"></div>
+                                        <div className="h-3 bg-[#E8E2D4] rounded-full w-1/2"></div>
+                                        <div className="h-8 bg-[#E8E2D4] rounded-full"></div>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     ) : products.length === 0 ? (
-                        <div className="text-center py-12">
-                            <div className="text-[#8B5E3C] text-lg text-section-title mb-2">No products found</div>
-                            <p className="text-[#A0956B] mb-4 text-body">Try adjusting your search or category</p>
-                            <Button
+                        <div className="text-center py-16">
+                            <div className="mb-8">
+                                <div className="w-20 h-20 bg-[#8B5E3C]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <span className="text-3xl">🔍</span>
+                                </div>
+                                <h2 className="text-2xl text-page-heading text-[#8B5E3C] mb-4">
+                                    No products found
+                                </h2>
+                                <p className="text-[#A0956B] mb-8 text-body max-w-md mx-auto leading-relaxed">
+                                    We couldn't find any products matching your criteria. Try adjusting your filters or explore our full collection.
+                                </p>
+                            </div>
+                            <PremiumCTAButton
                                 onClick={() => {
                                     setSelectedCategory('')
                                     setSearchTerm('')
                                     setSortBy('relevance')
                                 }}
-                                className="rounded-2xl bg-[#8B5E3C] hover:bg-[#6B4423] !text-white border-none text-button"
-                                style={{ color: 'white' }}
+                                variant="secondary"
                             >
                                 Show All Products
-                            </Button>
+                            </PremiumCTAButton>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                            {products.map((product) => (
-                                <ProductCard key={product.id} product={product} />
-                            ))}
-                        </div>
+                        <>
+                            {/* Products Count */}
+                            <div className="mb-8">
+                                <p className="text-[#A0956B] text-body">
+                                    Showing {products.length} {products.length === 1 ? 'product' : 'products'}
+                                </p>
+                            </div>
+
+                            {/* Products Grid */}
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                                {products.map((product) => (
+                                    <ProductCard key={product.id} product={product} />
+                                ))}
+                            </div>
+                        </>
                     )}
 
                     {/* Pagination */}
                     {totalPages > 1 && (
-                        <div className="flex justify-center items-center space-x-2 mt-12 pt-8 border-t border-[#E8E2D4]">
-                            <Button
-                                variant="outline"
+                        <div className="flex justify-center items-center space-x-3 mt-16 pt-12 border-t border-[#E8E2D4]">
+                            <button
                                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                                 disabled={currentPage === 1}
-                                className="rounded-2xl border-[#8B5E3C] text-[#8B5E3C] hover:bg-[#F5F1E8] disabled:opacity-50 text-button"
+                                className={`px-6 py-3 rounded-full text-button transition-all ${currentPage === 1
+                                    ? 'bg-[#E8E2D4] text-[#A0956B] cursor-not-allowed'
+                                    : 'bg-white text-[#8B5E3C] hover:bg-[#F5F1E8] border border-[#E8E2D4] hover:border-[#8B5E3C]'
+                                    }`}
                             >
                                 Previous
-                            </Button>
+                            </button>
 
-                            <div className="flex space-x-1">
+                            <div className="flex space-x-2">
                                 {[...Array(totalPages)].map((_, index) => {
                                     const page = index + 1
                                     if (
@@ -208,11 +233,10 @@ export default function ProductShowcase() {
                                             <button
                                                 key={page}
                                                 onClick={() => setCurrentPage(page)}
-                                                className={`px-4 py-2 rounded-2xl text-button transition-all ${currentPage === page
-                                                    ? 'bg-[#8B5E3C] !text-white shadow-lg'
-                                                    : 'bg-white text-[#8B5E3C] hover:bg-[#F5F1E8] border border-[#E8E2D4]'
+                                                className={`w-12 h-12 rounded-full text-button transition-all ${currentPage === page
+                                                    ? 'bg-[#8B5E3C] text-white shadow-lg'
+                                                    : 'bg-white text-[#8B5E3C] hover:bg-[#F5F1E8] border border-[#E8E2D4] hover:border-[#8B5E3C]'
                                                     }`}
-                                                style={currentPage === page ? { color: 'white' } : {}}
                                             >
                                                 {page}
                                             </button>
@@ -221,20 +245,26 @@ export default function ProductShowcase() {
                                         page === currentPage - 2 ||
                                         page === currentPage + 2
                                     ) {
-                                        return <span key={page} className="px-2 text-[#A0956B] text-body">...</span>
+                                        return (
+                                            <span key={page} className="w-12 h-12 flex items-center justify-center text-[#A0956B] text-body">
+                                                ...
+                                            </span>
+                                        )
                                     }
                                     return null
                                 })}
                             </div>
 
-                            <Button
-                                variant="outline"
+                            <button
                                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                                 disabled={currentPage === totalPages}
-                                className="rounded-2xl border-[#8B5E3C] text-[#8B5E3C] hover:bg-[#F5F1E8] disabled:opacity-50 text-button"
+                                className={`px-6 py-3 rounded-full text-button transition-all ${currentPage === totalPages
+                                    ? 'bg-[#E8E2D4] text-[#A0956B] cursor-not-allowed'
+                                    : 'bg-white text-[#8B5E3C] hover:bg-[#F5F1E8] border border-[#E8E2D4] hover:border-[#8B5E3C]'
+                                    }`}
                             >
                                 Next
-                            </Button>
+                            </button>
                         </div>
                     )}
                 </div>
