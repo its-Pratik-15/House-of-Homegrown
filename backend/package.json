@@ -9,13 +9,16 @@
         "db:generate": "prisma generate --schema=./prisma/schema.prisma",
         "db:push": "prisma db push --schema=./prisma/schema.prisma",
         "db:migrate": "prisma migrate dev --schema=./prisma/schema.prisma",
-        "db:studio": "prisma studio --schema=./prisma/schema.prisma"
+        "db:studio": "prisma studio --schema=./prisma/schema.prisma",
+        "db:seed": "node prisma/seed.js"
     },
     "dependencies": {
-        "express": "^4.18.2",
+        "@prisma/client": "^5.7.1",
         "cors": "^2.8.5",
         "dotenv": "^16.3.1",
-        "@prisma/client": "^5.7.1"
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.3",
+        "uuid": "^13.0.0"
     },
     "devDependencies": {
         "nodemon": "^3.0.2",

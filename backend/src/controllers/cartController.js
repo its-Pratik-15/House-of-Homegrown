@@ -3,13 +3,23 @@ const cartService = require('../services/cartService');
 class CartController {
   async getUserCart(req, res) {
     try {
-      const userId = 1; 
+      let identifier;
+      let isGuest = false;
+
+      if (req.isGuest) {
+        identifier = req.guestId;
+        isGuest = true;
+      } else {
+        identifier = req.userId || 1; // Fallback for testing
+      }
       
-      const cart = await cartService.getUserCart(parseInt(userId));
+      const cart = await cartService.getUserCart(identifier, isGuest);
       
       res.json({
         success: true,
-        data: cart
+        data: cart,
+        isGuest: req.isGuest || false,
+        ...(req.guestToken && { guestToken: req.guestToken })
       });
     } catch (error) {
       console.error('Error in getUserCart:', error);
@@ -22,7 +32,16 @@ class CartController {
   
   async addItemToCart(req, res) {
     try {
-      const userId = req.headers['user-id'] || 1;
+      let identifier;
+      let isGuest = false;
+
+      if (req.isGuest) {
+        identifier = req.guestId;
+        isGuest = true;
+      } else {
+        identifier = req.userId || req.headers['user-id'] || 1; // Fallback for testing
+      }
+
       const { productId, quantity } = req.body;
       
       if (!productId || !quantity) {
@@ -33,14 +52,17 @@ class CartController {
       }
       
       const item = await cartService.addItemToCart(
-        parseInt(userId),
+        identifier,
         parseInt(productId),
-        parseInt(quantity)
+        parseInt(quantity),
+        isGuest
       );
       
       res.status(201).json({
         success: true,
-        data: item
+        data: item,
+        isGuest: req.isGuest || false,
+        ...(req.guestToken && { guestToken: req.guestToken })
       });
     } catch (error) {
       console.error('Error in addItemToCart:', error);
@@ -62,15 +84,29 @@ class CartController {
           error: 'Quantity is required'
         });
       }
+
+      let identifier;
+      let isGuest = false;
+
+      if (req.isGuest) {
+        identifier = req.guestId;
+        isGuest = true;
+      } else {
+        identifier = req.userId || 1;
+      }
       
       const item = await cartService.updateCartItem(
         parseInt(itemId),
-        parseInt(quantity)
+        parseInt(quantity),
+        identifier,
+        isGuest
       );
       
       res.json({
         success: true,
-        data: item
+        data: item,
+        isGuest: req.isGuest || false,
+        ...(req.guestToken && { guestToken: req.guestToken })
       });
     } catch (error) {
       console.error('Error in updateCartItem:', error);
@@ -84,18 +120,59 @@ class CartController {
   async removeCartItem(req, res) {
     try {
       const { itemId } = req.params;
+
+      let identifier;
+      let isGuest = false;
+
+      if (req.isGuest) {
+        identifier = req.guestId;
+        isGuest = true;
+      } else {
+        identifier = req.userId || 1;
+      }
       
-      await cartService.removeCartItem(parseInt(itemId));
+      await cartService.removeCartItem(parseInt(itemId), identifier, isGuest);
       
       res.json({
         success: true,
-        message: 'Item removed from cart'
+        message: 'Item removed from cart',
+        isGuest: req.isGuest || false,
+        ...(req.guestToken && { guestToken: req.guestToken })
       });
     } catch (error) {
       console.error('Error in removeCartItem:', error);
       res.status(500).json({
         success: false,
         error: 'Failed to remove cart item'
+      });
+    }
+  }
+
+  async clearCart(req, res) {
+    try {
+      let identifier;
+      let isGuest = false;
+
+      if (req.isGuest) {
+        identifier = req.guestId;
+        isGuest = true;
+      } else {
+        identifier = req.userId || 1;
+      }
+      
+      await cartService.clearCart(identifier, isGuest);
+      
+      res.json({
+        success: true,
+        message: 'Cart cleared successfully',
+        isGuest: req.isGuest || false,
+        ...(req.guestToken && { guestToken: req.guestToken })
+      });
+    } catch (error) {
+      console.error('Error in clearCart:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to clear cart'
       });
     }
   }
