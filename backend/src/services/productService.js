@@ -15,6 +15,9 @@ class ProductService {
         });
         if (categoryRecord) {
           whereClause.categoryId = categoryRecord.id;
+        } else {
+          // Category provided but not found - return empty results
+          return [];
         }
       }
       

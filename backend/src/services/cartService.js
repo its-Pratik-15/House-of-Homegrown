@@ -5,13 +5,26 @@ class CartService {
     try {
       let cart = await prisma.cart.findFirst({
         where: { userId },
-        include: {
+        select: {
+          id: true,
+          userId: true,
+          createdAt: true,
+          updatedAt: true,
           items: {
-            include: {
+            orderBy: { id: 'desc' },
+            select: {
+              id: true,
+              quantity: true,
+              priceAtTime: true,
               product: {
-                include: {
+                select: {
+                  id: true,
+                  title: true,
+                  slug: true,
+                  price: true,
                   images: {
-                    orderBy: { position: 'asc' },
+                    where: { position: 0 },
+                    select: { url: true },
                     take: 1
                   }
                 }
@@ -20,36 +33,42 @@ class CartService {
           }
         }
       });
-      
-      // Create cart if doesn't exist
+
       if (!cart) {
         cart = await prisma.cart.create({
           data: { userId },
-          include: {
-            items: {
-              include: {
-                product: {
-                  include: {
-                    images: {
-                      orderBy: { position: 'asc' },
-                      take: 1
-                    }
-                  }
-                }
-              }
-            }
+          select: {
+            id: true,
+            userId: true,
+            createdAt: true,
+            updatedAt: true,
+            items: true
           }
         });
       }
-      
+
       return cart;
     } catch (error) {
       throw new Error(`Failed to fetch cart: ${error.message}`);
     }
   }
-  
-  async addItemToCart(userId, productId, quantity, priceAtTime) {
+
+  async addItemToCart(userId, productId, quantity) {
     try {
+      // Fetch product to get real price and check inventory
+      const product = await prisma.product.findUnique({
+        where: { id: productId },
+        include: { inventory: true }
+      });
+
+      if (!product) {
+        throw new Error('Product not found');
+      }
+
+      if (!product.inventory || product.inventory.stockQuantity < quantity) {
+        throw new Error(`Insufficient stock. Available: ${product.inventory?.stockQuantity || 0}`);
+      }
+
       const cart = await this.getUserCart(userId);
       
       // Check if item already exists
@@ -63,40 +82,25 @@ class CartService {
       });
       
       if (existingItem) {
-        // Update quantity
+        // Check if total new quantity exceeds stock
+        if (product.inventory.stockQuantity < existingItem.quantity + quantity) {
+           throw new Error(`Insufficient stock. Available: ${product.inventory.stockQuantity}`);
+        }
+
+        // Update existing item quantity
         const updatedItem = await prisma.cartItem.update({
           where: { id: existingItem.id },
-          data: { quantity: existingItem.quantity + quantity },
-          include: {
-            product: {
-              include: {
-                images: {
-                  orderBy: { position: 'asc' },
-                  take: 1
-                }
-              }
-            }
-          }
+          data: { quantity: existingItem.quantity + quantity }
         });
         return updatedItem;
       } else {
-        // Create new item
+        // Create new item using REAL price
         const newItem = await prisma.cartItem.create({
           data: {
             cartId: cart.id,
             productId,
             quantity,
-            priceAtTime
-          },
-          include: {
-            product: {
-              include: {
-                images: {
-                  orderBy: { position: 'asc' },
-                  take: 1
-                }
-              }
-            }
+            priceAtTime: product.price // Use source of truth
           }
         });
         return newItem;
@@ -105,29 +109,19 @@ class CartService {
       throw new Error(`Failed to add item to cart: ${error.message}`);
     }
   }
-  
+
   async updateCartItem(itemId, quantity) {
     try {
       const updatedItem = await prisma.cartItem.update({
         where: { id: itemId },
-        data: { quantity },
-        include: {
-          product: {
-            include: {
-              images: {
-                orderBy: { position: 'asc' },
-                take: 1
-              }
-            }
-          }
-        }
+        data: { quantity }
       });
       return updatedItem;
     } catch (error) {
       throw new Error(`Failed to update cart item: ${error.message}`);
     }
   }
-  
+
   async removeCartItem(itemId) {
     try {
       await prisma.cartItem.delete({
