@@ -1,13 +1,44 @@
-import { Button } from "@/components/ui/button"
+import { useState } from 'react'
+import Header from './components/Header'
+import MobileMenu from './components/MobileMenu'
+import HeroSection from './components/HeroSection'
+import IntroSection from './components/IntroSection'
+import CategorySection from './components/CategorySection'
+import Footer from './components/Footer'
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const handleMenuClick = () => {
+    setIsMobileMenuOpen(true)
+  }
+
+  const handleMenuClose = () => {
+    setIsMobileMenuOpen(false)
+  }
+
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mb-4">House of Homegrown</h1>
-      <p className="text-lg mb-6 text-center max-w-md">
-        Sustainable, natural, and Indian-made products inspired by Roti, Kapda aur Makan
-      </p>
-      <Button>Click me</Button>
+    <div className="min-h-screen bg-background">
+      {/* Header - Now absolute positioned over hero */}
+      <Header onMenuClick={handleMenuClick} />
+
+      {/* Mobile Menu */}
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={handleMenuClose} />
+
+      {/* Main Content */}
+      <main>
+        {/* Hero Section - Now extends full width behind header */}
+        <HeroSection />
+
+        {/* Intro/About Preview */}
+        <IntroSection />
+
+        {/* Category Sections */}
+        <CategorySection />
+      </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }
