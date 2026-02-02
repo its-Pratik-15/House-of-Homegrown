@@ -338,9 +338,225 @@ async function main() {
         },
     });
 
+    // Organic Cotton Kitchen Towels
+    await prisma.product.create({
+        data: {
+            title: "Organic Cotton Kitchen Towels (Set of 2)",
+            slug: "organic-cotton-kitchen-towels",
+            shortDescription: "Soft, absorbent towels for everyday kitchen use",
+            longDescription: "Made from organic cotton with a natural weave. Highly absorbent, quick-drying, and designed for everyday Indian kitchens.",
+            price: 699,
+            mrp: 799,
+            brand: "Homegrown",
+            categoryId: textilesCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1770035432/kitchen-towel_ludlvh.jpg",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 120,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
+    // Handloom Cotton Cushion Cover
+    await prisma.product.create({
+        data: {
+            title: "Handloom Cotton Cushion Cover",
+            slug: "handloom-cotton-cushion-cover",
+            shortDescription: "Textured cotton cover for sofas and beds",
+            longDescription: "Handloom-woven cotton cushion cover with subtle texture. Designed to blend into modern and traditional Indian homes.",
+            price: 899,
+            mrp: 999,
+            brand: "Homegrown",
+            categoryId: textilesCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1770035432/Handloom-Cushion-Cover_qkpzzz.jpg",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 90,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
+    // Minimal Stoneware Tea Mug
+    await prisma.product.create({
+        data: {
+            title: "Minimal Stoneware Tea Mug",
+            slug: "minimal-stoneware-tea-mug",
+            shortDescription: "Everyday mug with a natural matte finish",
+            longDescription: "Hand-finished stoneware mug designed for daily tea and coffee rituals. Comfortable grip and durable build.",
+            price: 749,
+            mrp: 849,
+            brand: "Homegrown",
+            categoryId: homeLivingCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1770035444/mug-stone_obzidg.jpg",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 140,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
+    // Solid Wood Cutlery Holder
+    await prisma.product.create({
+        data: {
+            title: "Solid Wood Cutlery Holder",
+            slug: "solid-wood-cutlery-holder",
+            shortDescription: "Simple wooden holder for kitchen organization",
+            longDescription: "Crafted from solid wood with a natural grain finish. Keeps everyday cutlery organized and accessible.",
+            price: 1099,
+            mrp: 1299,
+            brand: "Homegrown",
+            categoryId: homeLivingCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1770035444/cutlery_holder_uw08m2.jpg",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 85,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
+    // Herbal Body Wash
+    await prisma.product.create({
+        data: {
+            title: "Herbal Body Wash",
+            slug: "herbal-body-wash",
+            shortDescription: "Mild body wash with herbal extracts",
+            longDescription: "Gentle body wash formulated with herbal extracts for daily cleansing. Leaves skin feeling fresh without dryness.",
+            price: 499,
+            mrp: 599,
+            brand: "Homegrown",
+            categoryId: wellnessCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1770035592/_AD_-_PR__I_have_fallen_in_love_with_this_stunning_gift_set_from_bareandbloomuk_as_they_are_the_perfect_treat_for_the_skin_and_senses_alike_.._Bare_Bloom_s_latest_launch_is_my_go-to_for_luxury_gifting_wi_lhe9qe.jpg",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 160,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
+    // Lavender Essential Oil
+    await prisma.product.create({
+        data: {
+            title: "Lavender Essential Oil",
+            slug: "lavender-essential-oil",
+            shortDescription: "Calming essential oil for relaxation",
+            longDescription: "Pure lavender essential oil suitable for diffusers and mindful rituals. Known for its calming and soothing aroma.",
+            price: 799,
+            mrp: 899,
+            brand: "Homegrown",
+            categoryId: wellnessCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1770035432/levender-oil_oal4fe.jpg",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 70,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
+    // Stainless Steel Lunch Box
+    await prisma.product.create({
+        data: {
+            title: "Stainless Steel Lunch Box",
+            slug: "stainless-steel-lunch-box",
+            shortDescription: "Durable lunch box for everyday meals",
+            longDescription: "Food-grade stainless steel lunch box designed for daily office or school use. Easy to clean and long-lasting.",
+            price: 1199,
+            mrp: 1399,
+            brand: "Homegrown",
+            categoryId: lifestyleCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1770035431/luunch-box_tksiev.jpg",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 110,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
+    // Reusable Cotton Face Towels
+    await prisma.product.create({
+        data: {
+            title: "Reusable Cotton Face Towels",
+            slug: "reusable-cotton-face-towels",
+            shortDescription: "Soft towels for skincare routines",
+            longDescription: "Reusable cotton face towels designed for gentle cleansing and skincare routines. Soft on skin and easy to wash.",
+            price: 399,
+            mrp: 499,
+            brand: "Homegrown",
+            categoryId: lifestyleCategory.id,
+            images: {
+                create: [{
+                    url: "https://res.cloudinary.com/dilfeibvg/image/upload/v1770035432/face-towel_rwh6ve.jpg",
+                    position: 0,
+                }],
+            },
+            inventory: {
+                create: {
+                    stockQuantity: 200,
+                    reservedQuantity: 0,
+                    soldCount: 0,
+                },
+            },
+        },
+    });
+
     console.log("Seeding completed successfully!");
     console.log(`Created categories: WELLNESS, HOME_LIVING, LIFESTYLE, TEXTILES`);
-    console.log(`Created 11 products with inventory data`);
+    console.log(`Created 19 products with inventory data`);
 }
 
 main()
