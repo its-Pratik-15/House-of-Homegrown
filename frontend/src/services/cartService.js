@@ -82,7 +82,11 @@ class CartApiService {
             if (!response.ok) {
                 const errorText = await response.text()
                 console.error('Cart API error response:', errorText)
-                throw new Error(`HTTP error! status: ${response.status}`)
+                
+                const error = new Error(`HTTP error! status: ${response.status}`)
+                error.status = response.status
+                error.code = response.status === 404 ? 'SERVER_NOT_FOUND' : 'HTTP_ERROR'
+                throw error
             }
 
             // Check for new guest token in response headers
@@ -97,6 +101,22 @@ class CartApiService {
             return data.success ? data : data
         } catch (error) {
             console.error('Cart API request failed:', error)
+            
+            // Handle network errors
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                const networkError = new Error('Unable to connect to server. Please check your connection.')
+                networkError.code = 'NETWORK_ERROR'
+                throw networkError
+            }
+            
+            // Handle 404 errors (server not available)
+            if (error.status === 404) {
+                const serverError = new Error('Server is currently unavailable. Please try again in a few moments.')
+                serverError.code = 'SERVER_NOT_FOUND'
+                serverError.status = 404
+                throw serverError
+            }
+            
             throw error
         }
     }

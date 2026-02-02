@@ -111,18 +111,18 @@ export default function ProductDetail() {
     const isLowStock = product.inventory && product.inventory.stockQuantity <= 5 && product.inventory.stockQuantity > 0
 
     return (
-        <div className="min-h-screen bg-[#FAFAF8] pt-20">
-            <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+        <div className="min-h-screen bg-[#FAFAF8] pt-16">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6">
                 {/* Back Button */}
                 <button
                     onClick={() => navigate(-1)}
-                    className="flex items-center space-x-2 text-[#8B5E3C] hover:text-[#6B4423] transition-colors mb-8 group"
+                    className="flex items-center space-x-2 text-[#8B5E3C] hover:text-[#6B4423] transition-colors mb-4 group"
                 >
                     <ArrowLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
                     <span className="text-button">Back to Products</span>
                 </button>
 
-                <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+                <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                     {/* Product Images */}
                     <div className="space-y-4">
                         {/* Main Image */}
@@ -164,7 +164,7 @@ export default function ProductDetail() {
                     </div>
 
                     {/* Product Information */}
-                    <div className="space-y-6">
+                    <div className="space-y-4">
                         {/* Category */}
                         {product.category && (
                             <div className="text-sm text-[#A0956B] text-body uppercase tracking-wider">
@@ -177,11 +177,11 @@ export default function ProductDetail() {
                             {product.title}
                         </h1>
 
-                        {/* Rating (placeholder) */}
+                        {/* Rating */}
                         <div className="flex items-center space-x-2">
                             <div className="flex space-x-1">
                                 {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className="h-4 w-4 fill-[#8B5E3C] text-[#8B5E3C]" />
+                                    <Star key={i} className="h-4 w-4 fill-[#2F7D32] text-[#2F7D32]" />
                                 ))}
                             </div>
                             <span className="text-sm text-[#A0956B] text-body">(4.8) • 127 reviews</span>

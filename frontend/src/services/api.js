@@ -15,13 +15,31 @@ class ApiService {
             const response = await fetch(url, config)
             
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`)
+                const error = new Error(`HTTP error! status: ${response.status}`)
+                error.status = response.status
+                error.code = response.status === 404 ? 'SERVER_NOT_FOUND' : 'HTTP_ERROR'
+                throw error
             }
 
             const data = await response.json()
             return data.success ? data.data : data
         } catch (error) {
             console.error('API request failed:', error)
+            
+            // Handle different types of errors
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                const networkError = new Error('Unable to connect to server. Please check your connection.')
+                networkError.code = 'NETWORK_ERROR'
+                throw networkError
+            }
+            
+            if (error.status === 404) {
+                const serverError = new Error('Server is currently unavailable. Please try again in a few moments.')
+                serverError.code = 'SERVER_NOT_FOUND'
+                serverError.status = 404
+                throw serverError
+            }
+            
             throw error
         }
     }
