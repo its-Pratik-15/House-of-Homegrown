@@ -1,4 +1,4 @@
-import { Search } from 'lucide-react'
+import { Search, ChevronDown, ChevronUp } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import {
@@ -8,19 +8,103 @@ import {
     SheetTitle,
 } from '@/components/ui/sheet'
 
-const menuItems = [
-    { title: 'Shop', href: '/products' },
-    { title: 'Textiles', href: '/products?category=TEXTILES' },
-    { title: 'Home & Living', href: '/products?category=HOME_LIVING' },
-    { title: 'Wellness', href: '/products?category=WELLNESS' },
-    { title: 'Lifestyle', href: '/products?category=LIFESTYLE' },
-    { title: 'Cart', href: '/cart' },
-    { title: 'About Us', href: '/about' },
+const menuSections = [
+    {
+        title: 'Shop',
+        items: [
+            { name: 'All Products', href: '/products' },
+            { name: 'Textiles', href: '/products?category=TEXTILES' },
+            { name: 'Home & Living', href: '/products?category=HOME_LIVING' },
+            { name: 'Wellness', href: '/products?category=WELLNESS' },
+            { name: 'Lifestyle', href: '/products?category=LIFESTYLE' },
+        ]
+    },
+    {
+        title: 'About',
+        items: [
+            { name: 'Our Story', href: '/about' },
+            { name: 'Contact Us', href: '/contact' },
+        ]
+    },
+    {
+        title: 'Help',
+        items: [
+            { name: 'FAQ', href: '/faq' },
+            { name: 'Shipping', href: '/shipping' },
+            { name: 'Returns', href: '/returns' },
+        ]
+    }
 ]
+
+function AccordionSection({ title, items, isOpen, onToggle, onClose }) {
+    const handleLinkClick = () => {
+        // Close the entire mobile menu when a link is clicked
+        onClose()
+    }
+
+    return (
+        <div className="border-b border-gray-200 last:border-b-0">
+            <button
+                onClick={onToggle}
+                className="w-full flex items-center justify-between py-4 text-left"
+            >
+                <span className="text-base font-medium text-gray-900">{title}</span>
+                {isOpen ? (
+                    <ChevronUp className="h-4 w-4 text-gray-600" />
+                ) : (
+                    <ChevronDown className="h-4 w-4 text-gray-600" />
+                )}
+            </button>
+
+            {isOpen && (
+                <div className="pb-4">
+                    <ul className="space-y-2 pl-4">
+                        {items.map((item, index) => (
+                            <li key={index}>
+                                <Link
+                                    to={item.href}
+                                    className="block py-2 text-gray-700 hover:text-[#8B5E3C] text-sm transition-colors"
+                                    onClick={handleLinkClick}
+                                >
+                                    {item.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </div>
+    )
+}
 
 export default function MobileMenu({ isOpen, onClose }) {
     const [searchTerm, setSearchTerm] = useState('')
+    const [openSections, setOpenSections] = useState(() => {
+        // Initialize with persistent state from localStorage
+        try {
+            const saved = localStorage.getItem('mobileMenuOpenSections')
+            return saved ? JSON.parse(saved) : {}
+        } catch {
+            return {}
+        }
+    })
     const navigate = useNavigate()
+
+    const toggleSection = (index) => {
+        setOpenSections(prev => {
+            const newState = {
+                ...prev,
+                [index]: !prev[index]
+            }
+            // Persist to localStorage
+            try {
+                localStorage.setItem('mobileMenuOpenSections', JSON.stringify(newState))
+            } catch {
+                // Ignore localStorage errors
+            }
+            return newState
+        })
+    }
 
     const handleSearch = (e) => {
         e.preventDefault()
@@ -97,7 +181,7 @@ export default function MobileMenu({ isOpen, onClose }) {
                 </SheetHeader>
 
                 {/* Search Bar */}
-                <div className="p-4 border-b border-gray-200">
+                <div className="p-4 pb-2 border-b border-gray-200">
                     <form onSubmit={handleSearch}>
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-4 w-4" />
@@ -114,20 +198,20 @@ export default function MobileMenu({ isOpen, onClose }) {
                 </div>
 
                 {/* Menu Items */}
-                <nav className="p-4">
-                    <ul className="space-y-1">
-                        {menuItems.map((item, index) => (
-                            <li key={index}>
-                                <Link
-                                    to={item.href}
-                                    className="block py-3 px-2 text-gray-900 hover:bg-gray-100 rounded-lg transition-colors text-base font-medium"
-                                    onClick={onClose}
-                                >
-                                    {item.title}
-                                </Link>
-                            </li>
+                <nav className="p-4 pt-2">
+                    {/* Accordion Sections */}
+                    <div className="space-y-0">
+                        {menuSections.map((section, index) => (
+                            <AccordionSection
+                                key={index}
+                                title={section.title}
+                                items={section.items}
+                                isOpen={openSections[index]}
+                                onToggle={() => toggleSection(index)}
+                                onClose={onClose}
+                            />
                         ))}
-                    </ul>
+                    </div>
                 </nav>
             </SheetContent>
         </Sheet>

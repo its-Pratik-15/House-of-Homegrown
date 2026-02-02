@@ -308,6 +308,40 @@ export default function ProductDetail() {
                                 <div className="text-xs text-[#A0956B] text-body">30-Day Returns</div>
                             </div>
                         </div>
+
+                        {/* Detailed Product Description */}
+                        <div className="space-y-4 pt-6 border-t border-[#E8E2D4]">
+                            <h3 className="text-lg text-section-title text-[#8B5E3C]">Product Details</h3>
+                            <div className="space-y-4">
+                                <p className="text-[#A0956B] text-body leading-relaxed">
+                                    {product.longDescription || product.description ||
+                                        "This handcrafted product embodies the essence of sustainable Indian living. Made with natural materials and traditional techniques passed down through generations, each piece tells a story of artisan craftsmanship and environmental consciousness."}
+                                </p>
+
+                                {/* Product Specifications */}
+                                <div className="space-y-3">
+                                    <h4 className="text-base text-section-title text-[#8B5E3C]">Specifications</h4>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                                        <div className="flex justify-between py-2 border-b border-[#E8E2D4]">
+                                            <span className="text-[#A0956B] text-body">Brand</span>
+                                            <span className="text-[#8B5E3C] text-body font-medium">{product.brand || 'House Of Homegrown'}</span>
+                                        </div>
+                                        <div className="flex justify-between py-2 border-b border-[#E8E2D4]">
+                                            <span className="text-[#A0956B] text-body">Category</span>
+                                            <span className="text-[#8B5E3C] text-body font-medium">{product.category?.name || 'Handcrafted'}</span>
+                                        </div>
+                                        <div className="flex justify-between py-2 border-b border-[#E8E2D4]">
+                                            <span className="text-[#A0956B] text-body">Material</span>
+                                            <span className="text-[#8B5E3C] text-body font-medium">Natural & Sustainable</span>
+                                        </div>
+                                        <div className="flex justify-between py-2 border-b border-[#E8E2D4]">
+                                            <span className="text-[#A0956B] text-body">Origin</span>
+                                            <span className="text-[#8B5E3C] text-body font-medium">Made in India</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
