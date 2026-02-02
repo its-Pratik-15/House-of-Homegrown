@@ -63,6 +63,8 @@ House of Homegrown is a full-stack e-commerce application built to demonstrate m
 
 ## Entity Relationship (ER) Model
 
+![ER Model](docs/images/er-model.png)
+
 The application uses a relational database structure designed to support e-commerce operations while maintaining data integrity and scalability.
 
 ### Core Entities
