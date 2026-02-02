@@ -3,7 +3,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function main() {
-    console.log("Seeding database...");
+    // Seeding database...
 
     // Category: WELLNESS
     const wellnessCategory = await prisma.category.upsert({
@@ -554,9 +554,7 @@ async function main() {
         },
     });
 
-    console.log("Seeding completed successfully!");
-    console.log(`Created categories: WELLNESS, HOME_LIVING, LIFESTYLE, TEXTILES`);
-    console.log(`Created 19 products with inventory data`);
+    // Seeding completed successfully
 }
 
 main()

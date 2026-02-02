@@ -74,8 +74,6 @@ class ProductService {
       const limitNum = limit ? parseInt(limit) : 12;
       const skip = (pageNum - 1) * limitNum;
       
-      console.log('Query params:', { whereClause, orderBy, skip, take: limitNum });
-      
       const products = await prisma.product.findMany({
         where: whereClause,
         include: {

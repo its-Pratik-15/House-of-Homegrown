@@ -15,6 +15,8 @@ import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import Shipping from './pages/Shipping'
 import Returns from './pages/Returns'
+import Checkout from './pages/Checkout'
+import OrderSuccess from './pages/OrderSuccess'
 
 // Home Page Component
 function HomePage() {
@@ -50,6 +52,8 @@ function App() {
               <Route path="/products" element={<ProductShowcase />} />
               <Route path="/products/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/order-success" element={<OrderSuccess />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/faq" element={<FAQ />} />

@@ -58,6 +58,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`House of Homegrown server running on port ${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/health`);
+  // Server started successfully
 });
