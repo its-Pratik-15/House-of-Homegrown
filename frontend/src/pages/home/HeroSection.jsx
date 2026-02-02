@@ -24,7 +24,7 @@ export default function HeroSection() {
                     <img
                         src={isMobile ? "/hero-img-mobile.png" : "/hero-img-desktop.png"}
                         alt="House of Homegrown lifestyle"
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className={`absolute inset-0 w-full h-full ${isMobile ? 'object-cover object-bottom' : 'object-cover'}`}
                     />
                     {/* Overlay for better text readability */}
                     <div className="absolute inset-0 bg-black/20"></div>
@@ -90,8 +90,8 @@ export default function HeroSection() {
                     </div>
                 </div>
 
-                {/* CTA Button - Mobile positioning (moved lower) */}
-                <div className="absolute bottom-16 md:hidden">
+                {/* CTA Button - Mobile positioning (positioned just above hero image end) */}
+                <div className="absolute bottom-8 md:hidden">
                     <PremiumCTAButton to="/products" variant="primary">
                         Shop Now
                     </PremiumCTAButton>

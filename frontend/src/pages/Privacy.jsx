@@ -1,6 +1,6 @@
 export default function Privacy() {
     return (
-        <div className="min-h-screen bg-[#FAFAF8] pt-20">
+        <div className="min-h-screen bg-[#FAFAF8] pt-24 xl:pt-20">
             <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
                 {/* Header */}
                 <div className="text-center mb-12">
