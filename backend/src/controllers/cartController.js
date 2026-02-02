@@ -22,7 +22,6 @@ class CartController {
         ...(req.guestToken && { guestToken: req.guestToken })
       });
     } catch (error) {
-      console.error('Error in getUserCart:', error);
       res.status(500).json({
         success: false,
         error: 'Failed to fetch cart'
@@ -65,7 +64,6 @@ class CartController {
         ...(req.guestToken && { guestToken: req.guestToken })
       });
     } catch (error) {
-      console.error('Error in addItemToCart:', error);
       res.status(500).json({
         success: false,
         error: 'Failed to add item to cart'
@@ -109,7 +107,6 @@ class CartController {
         ...(req.guestToken && { guestToken: req.guestToken })
       });
     } catch (error) {
-      console.error('Error in updateCartItem:', error);
       res.status(500).json({
         success: false,
         error: 'Failed to update cart item'
@@ -140,7 +137,6 @@ class CartController {
         ...(req.guestToken && { guestToken: req.guestToken })
       });
     } catch (error) {
-      console.error('Error in removeCartItem:', error);
       res.status(500).json({
         success: false,
         error: 'Failed to remove cart item'
@@ -169,7 +165,6 @@ class CartController {
         ...(req.guestToken && { guestToken: req.guestToken })
       });
     } catch (error) {
-      console.error('Error in clearCart:', error);
       res.status(500).json({
         success: false,
         error: 'Failed to clear cart'

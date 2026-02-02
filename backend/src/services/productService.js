@@ -100,7 +100,6 @@ class ProductService {
         totalCount
       };
     } catch (error) {
-      console.error('ProductService error:', error);
       throw new Error(`Failed to fetch products: ${error.message}`);
     }
   }

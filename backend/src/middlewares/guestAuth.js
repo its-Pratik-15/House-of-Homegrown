@@ -79,8 +79,6 @@ const guestAuth = (req, res, next) => {
 
         next();
     } catch (error) {
-        console.error('Guest auth middleware error:', error);
-        
         // Fallback: create new guest session
         const guestId = uuidv4();
         const guestToken = jwt.sign(

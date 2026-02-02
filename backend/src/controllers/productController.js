@@ -23,7 +23,6 @@ class ProductController {
         });
       }
     } catch (error) {
-      console.error('Error in getAllProducts:', error);
       res.status(500).json({
         success: false,
         error: 'Failed to fetch products'
@@ -41,7 +40,6 @@ class ProductController {
         data: product
       });
     } catch (error) {
-      console.error('Error in getProductBySlug:', error);
       if (error.message === 'Product not found') {
         return res.status(404).json({
           success: false,
@@ -65,7 +63,6 @@ class ProductController {
         data: product
       });
     } catch (error) {
-      console.error('Error in getProductById:', error);
       if (error.message === 'Product not found') {
         return res.status(404).json({
           success: false,

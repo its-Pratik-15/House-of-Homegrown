@@ -47,7 +47,6 @@ House of Homegrown is a full-stack e-commerce application built to demonstrate m
 ### Frontend
 
 - **React** - Component-based UI library
-- **TypeScript** - Type-safe JavaScript development
 - **Tailwind CSS** - Utility-first CSS framework
 - **shadcn/ui** - Modern React component library
 - **lucide-react** - Icon library
@@ -115,7 +114,7 @@ house-of-homegrown/
 │   │   ├── services/            # API communication layer
 │   │   ├── hooks/               # Custom React hooks
 │   │   ├── utils/               # Utility functions
-│   │   └── types/               # TypeScript type definitions
+│   │   └── constants/           # Application constants
 │   ├── public/                  # Static assets
 │   └── package.json
 ├── backend/
@@ -273,19 +272,6 @@ cd backend
 npm run db:seed
 ```
 
-## Future Improvements
-
-- User authentication and account management
-- Payment gateway integration
-- Order management system
-- Product reviews and ratings
-- Advanced search with filters
-- Wishlist functionality
-- Admin dashboard for product management
-- Email notifications
-- Analytics and reporting
-- Multi-language support
-
 ## Project Goals
 
 This project demonstrates:
@@ -294,7 +280,6 @@ This project demonstrates:
 - **Modern React Patterns** - Hooks, context, and component composition
 - **Database Design** - Normalized schema with proper relationships
 - **API Design** - RESTful endpoints with consistent patterns
-- **Type Safety** - TypeScript implementation for better code quality
 - **Responsive Design** - Mobile-first approach with modern CSS
 - **Code Organization** - Modular architecture with separation of concerns
 - **Development Workflow** - Environment configuration and database migrations

@@ -9,7 +9,6 @@ class CategoryController {
         data: categories
       });
     } catch (error) {
-      console.error('Error in getAllCategories:', error);
       res.status(500).json({
         success: false,
         error: 'Failed to fetch categories'
