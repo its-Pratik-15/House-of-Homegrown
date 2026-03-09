@@ -291,3 +291,8 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ---
 
 **House of Homegrown** - Supporting local artisans and sustainable living
+
+## Security Policy
+
+### Reporting a Vulnerability
+If you discover a security vulnerability, please email security@example.com
